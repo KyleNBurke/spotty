@@ -15,6 +15,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RedirectComponent } from './redirect/redirect.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 const routes: Routes = [
   { path: '', component: SignInComponent },
@@ -32,7 +34,8 @@ const routes: Routes = [
     BrowseComponent,
     SearchComponent,
     PlayerComponent,
-    RedirectComponent
+    RedirectComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ const routes: Routes = [
     MatCardModule,
     MatSliderModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
