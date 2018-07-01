@@ -17,6 +17,8 @@ import { RedirectComponent } from './redirect/redirect.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { PlaylistComponent } from './playlist/playlist.component';
+import { TrackComponent } from './track/track.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'playlists', pathMatch: 'full' },
@@ -34,7 +36,9 @@ const routes: Routes = [
     SearchComponent,
     PlayerComponent,
     RedirectComponent,
-    NavbarComponent
+    NavbarComponent,
+    PlaylistComponent,
+    TrackComponent
   ],
   imports: [
     BrowserModule,
