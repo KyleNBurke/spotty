@@ -7,6 +7,8 @@ import { PlaylistsComponent } from './playlists/playlists.component';
 import { BrowseComponent } from './browse/browse.component';
 import { SearchComponent } from './search/search.component';
 import { PlayerComponent } from './player/player.component';
+import { PlaylistComponent } from './playlist/playlist.component';
+import { TrackComponent } from './track/track.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
@@ -16,9 +18,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { RedirectComponent } from './redirect/redirect.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import { PlaylistComponent } from './playlist/playlist.component';
-import { TrackComponent } from './track/track.component';
+import  {MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatTableModule } from '@angular/material/table';
 
 const routes: Routes = [
   { path: '', redirectTo: 'playlists', pathMatch: 'full' },
@@ -49,7 +50,8 @@ const routes: Routes = [
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
