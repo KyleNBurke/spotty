@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { SignInComponent } from './sign-in/sign-in.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
 import { BrowseComponent } from './browse/browse.component';
 import { SearchComponent } from './search/search.component';
@@ -19,7 +18,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 const routes: Routes = [
-  { path: '', component: SignInComponent },
+  { path: '', redirectTo: 'playlists', pathMatch: 'full' },
   { path: 'redirect', component: RedirectComponent },
   { path: 'playlists', component: PlaylistsComponent },
   { path: 'browse', component: BrowseComponent },
@@ -29,7 +28,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    SignInComponent,
     PlaylistsComponent,
     BrowseComponent,
     SearchComponent,
