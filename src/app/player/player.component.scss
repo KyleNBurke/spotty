@@ -1,9 +1,9 @@
-.controls {
-    margin: auto;
-    width: 50%;
-    //background-color: lightblue;
+mat-card {
+    position: fixed;
+    bottom: 5px;
+    padding: 10px;
 }
 
 mat-slider {
-    //width: 100%;
+    width: 500px;
 }
