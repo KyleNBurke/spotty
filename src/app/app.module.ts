@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RedirectComponent } from './redirect/redirect.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 const routes: Routes = [
   { path: '', redirectTo: 'playlists', pathMatch: 'full' },
@@ -43,7 +44,8 @@ const routes: Routes = [
     MatSliderModule,
     MatButtonModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatButtonToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
