@@ -3,7 +3,7 @@
       <h4>{{track.title}}</h4>
       <p>{{track.artist}}</p>
   </div>
-  <button mat-button><mat-icon>play_arrow</mat-icon></button>
+  <button mat-button (click)="onTogglePlay()"><mat-icon>{{playing ? 'pause' : 'play_arrow'}}</mat-icon></button>
   <button mat-button><mat-icon>skip_previous</mat-icon></button>
   <mat-slider></mat-slider>
   <button mat-button><mat-icon>skip_next</mat-icon></button>

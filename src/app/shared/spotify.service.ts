@@ -12,8 +12,9 @@ export class SpotifyService {
   private accessToken: string;
   private headers: HttpHeaders = new HttpHeaders();
   private userId: string;
-  private currentlyPlayingTrack: Track;
-  currentlyPlayingTrackChanged = new Subject<Track>();
+
+  private currentTrack: Track;
+  currentTrackChanged = new Subject<Track>();
 
   private playlists: Playlist[] = [];
   playListsFetched = new Subject<Playlist[]>();
@@ -56,20 +57,32 @@ export class SpotifyService {
   }
 
   playSong(track: Track) {
-    this.currentlyPlayingTrack = track;
-    this.currentlyPlayingTrackChanged.next(this.currentlyPlayingTrack);
+    this.currentTrack = track;
+    this.currentTrackChanged.next(this.currentTrack);
 
-    /*let headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.accessToken);
-    console.log(headers);
+    const endpoint = 'https://api.spotify.com/v1/me/player/play';
+    const bodyParams = {
+      uris: [this.currentTrack.uri]
+    }
 
-    const endpoint1 = 'https://api.spotify.com/v1/me/player/currently-playing';
-    this.httpClient.get(endpoint1, { headers: headers }).subscribe((data: Object) => {
-      console.log(data);
+    this.httpClient.put(endpoint, bodyParams, { headers: this.headers }).subscribe((data: Object) => {
+      //console.log(data);
     });
+  }
 
-    const endpoint2 = 'https://api.spotify.com/v1/me/player/play';
-    this.httpClient.put(endpoint2, { headers: headers }).subscribe((data: Object) => {
-      console.log(data);
-    });*/
+  playCurrentSong() {
+    const endpoint = 'https://api.spotify.com/v1/me/player/play';
+
+    this.httpClient.put(endpoint, null, { headers: this.headers }).subscribe((data: Object) => {
+      //console.log(data);
+    });
+  }
+
+  pauseCurrentSong() {
+    const endpoint = 'https://api.spotify.com/v1/me/player/pause';
+
+    this.httpClient.put(endpoint, null, { headers: this.headers }).subscribe((data: Object) => {
+      //console.log(data);
+    });
   }
 }

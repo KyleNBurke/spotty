@@ -9,14 +9,25 @@ import { SpotifyService } from '../shared/spotify.service';
 })
 export class PlayerComponent implements OnInit {
   private track: Track;
+  playing: boolean = false;
 
   constructor(private spotifyService: SpotifyService) {
-    this.spotifyService.currentlyPlayingTrackChanged.subscribe((track: Track) => {
+    this.spotifyService.currentTrackChanged.subscribe((track: Track) => {
       this.track = track;
+      this.playing = true;
     })
   }
 
   ngOnInit() {
+  }
+
+  onTogglePlay() {
+    if(this.playing)
+      this.spotifyService.pauseCurrentSong();
+    else
+      this.spotifyService.playCurrentSong();
+
+    this.playing = !this.playing;
   }
 
 }
