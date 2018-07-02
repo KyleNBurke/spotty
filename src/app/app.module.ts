@@ -7,8 +7,8 @@ import { PlaylistsComponent } from './playlists/playlists.component';
 import { BrowseComponent } from './browse/browse.component';
 import { SearchComponent } from './search/search.component';
 import { PlayerComponent } from './player/player.component';
-import { PlaylistComponent } from './playlist/playlist.component';
 import { TrackComponent } from './track/track.component';
+import { PlaylistComponent } from './playlist/playlist.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
@@ -20,12 +20,13 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import  {MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTableModule } from '@angular/material/table';
-import { AuthService } from './shared/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: '', redirectTo: 'playlists', pathMatch: 'full' },
   { path: 'redirect', component: RedirectComponent },
-  { path: 'playlists', component: PlaylistsComponent },
+  { path: 'playlists', redirectTo: 'playlists/0', pathMatch: 'full' },
+  { path: 'playlists/:id', component: PlaylistsComponent },
   { path: 'browse', component: BrowseComponent },
   { path: 'search', component: SearchComponent }
 ];
@@ -39,8 +40,8 @@ const routes: Routes = [
     PlayerComponent,
     RedirectComponent,
     NavbarComponent,
-    PlaylistComponent,
-    TrackComponent
+    TrackComponent,
+    PlaylistComponent
   ],
   imports: [
     BrowserModule,
@@ -52,9 +53,10 @@ const routes: Routes = [
     MatIconModule,
     MatToolbarModule,
     MatButtonToggleModule,
-    MatTableModule
+    MatTableModule,
+    HttpClientModule
   ],
-  providers: [AuthService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

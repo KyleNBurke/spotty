@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { SpotifyService } from '../shared/spotify.service';
+import { Playlist } from './playlist.model';
 
 @Component({
   selector: 'app-playlists',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./playlists.component.scss']
 })
 export class PlaylistsComponent implements OnInit {
+  playlists: Playlist[] = [];
 
-  constructor() { }
+  constructor(private spotifyService: SpotifyService) { }
 
   ngOnInit() {
+    this.spotifyService.playListsFetched.subscribe((playlists: Playlist[]) => {
+      this.playlists = playlists;
+    });
+
+    //this.spotifyService.getPlaylists();
   }
 
 }

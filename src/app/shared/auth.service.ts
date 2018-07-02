@@ -9,7 +9,7 @@ export class AuthService {
 
   constructor() {
     const accessToken = window.localStorage.getItem('accessToken');
-    
+
     if(accessToken !== null) {
       this._accessToken = accessToken;
       this._authorized = true;
@@ -26,6 +26,7 @@ export class AuthService {
 
   setAccessToken(accessToken: string) {
     this._accessToken = accessToken;
+    window.localStorage.setItem('accessToken', this._accessToken);
     this._authorized = true;
     //emit...
   }

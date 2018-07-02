@@ -1,8 +1,6 @@
 <div class="row">
   <div class="side">
-      <button mat-button>Playlist</button>
-      <button mat-button>Playlist</button>
-      <button mat-button>Playlist</button>
+      <button mat-button *ngFor="let playlist of playlists; let i = index" [routerLink]="['../', i]">{{playlist.name}}</button>
   </div>
   <div class="main">
     <app-playlist></app-playlist>
