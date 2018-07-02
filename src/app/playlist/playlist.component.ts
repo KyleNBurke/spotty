@@ -43,7 +43,8 @@ export class PlaylistComponent implements OnInit {
         'title': trackData['name'],
         'artist': artists,
         'album': trackData['album']['name'],
-        'uri': trackData['uri']
+        'uri': trackData['uri'],
+        'artwork': trackData['album']['images'][2]['url']
       };
       this.tracks.push(track);
     }
