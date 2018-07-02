@@ -51,8 +51,8 @@ export class PlaylistComponent implements OnInit {
     this.table.renderRows();
   }
 
-  onPlaySong(id: number) {
-    this.spotifyService.playSong(this.tracks[id].uri);
+  onPlaySong(index: number) {
+    this.spotifyService.playSong(this.tracks[index]);
   }
 
 }
