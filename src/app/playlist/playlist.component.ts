@@ -28,7 +28,6 @@ export class PlaylistComponent implements OnInit {
   }
 
   showPlaylist(data: Object) {
-    console.log(data);
     this.tracks = [];
 
     for(let i in data['items']) {
@@ -44,12 +43,16 @@ export class PlaylistComponent implements OnInit {
         'title': trackData['name'],
         'artist': artists,
         'album': trackData['album']['name'],
-        'id': trackData['id']
+        'uri': trackData['uri']
       };
       this.tracks.push(track);
     }
 
     this.table.renderRows();
+  }
+
+  onPlaySong(id: number) {
+    this.spotifyService.playSong(this.tracks[id].uri);
   }
 
 }

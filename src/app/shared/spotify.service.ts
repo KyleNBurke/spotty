@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Playlist } from '../playlists/playlist.model';
 
@@ -45,10 +45,34 @@ export class SpotifyService {
     });
   }
 
-  getPlaylistTracks(id: number): Observable<Object> {
-    const playlistId = this.playlists[id].id;
+  getPlaylistTracks(index: number): Observable<Object> {
+    const playlistId = this.playlists[index].id;
     const endpoint = 'https://api.spotify.com/v1/users/' + this.userId + '/playlists/' + playlistId + '/tracks';
 
     return this.httpClient.get(endpoint, { headers: this.headers });
+  }
+
+  playSong(uri: string) {
+    /*const endpoint = 'https://api.spotify.com/v1/me/player/play';
+    //let params = new HttpParams();
+    //params = params.append('uris', uri);
+    console.log(this.accessToken);
+
+    this.httpClient.put(endpoint, { headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.accessToken}) }).subscribe((data: Object) => {
+      console.log(data);
+    });*/
+
+    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.accessToken);
+    console.log(headers);
+
+    const endpoint1 = 'https://api.spotify.com/v1/me/player/currently-playing';
+    this.httpClient.get(endpoint1, { headers: headers }).subscribe((data: Object) => {
+      console.log(data);
+    });
+
+    const endpoint2 = 'https://api.spotify.com/v1/me/player/play';
+    this.httpClient.put(endpoint2, { headers: headers }).subscribe((data: Object) => {
+      console.log(data);
+    });
   }
 }

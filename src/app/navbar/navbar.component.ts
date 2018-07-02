@@ -11,7 +11,7 @@ export class NavbarComponent implements OnInit {
   private clientId: string = 'e2eadaaaab634e10b4c6943adcc1bc61';
   private responseType: string = 'token';
   private redirectURI: string = 'http://localhost:4200/redirect';
-  private scope: string = 'user-read-private playlist-read-private';
+  private scope: string = 'user-read-private playlist-read-private user-modify-playback-state user-read-playback-state user-read-currently-playing';
 
   constructor(@Inject(DOCUMENT) private document) { }
 

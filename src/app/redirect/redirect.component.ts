@@ -13,7 +13,6 @@ export class RedirectComponent implements OnInit {
 
   ngOnInit() {
     const accessToken = window.location.hash.split('access_token=')[1].split('&')[0];
-    console.log(accessToken)
     this.authService.setAccessToken(accessToken);
     this.router.navigate(['/playlists']);
   }
