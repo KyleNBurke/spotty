@@ -4,6 +4,29 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
+  private _authorized: boolean = false;
+  private _accessToken: string;
 
-  constructor() { }
+  constructor() {
+    const accessToken = window.localStorage.getItem('accessToken');
+    
+    if(accessToken !== null) {
+      this._accessToken = accessToken;
+      this._authorized = true;
+    }
+  }
+
+  get authorized(): boolean {
+    return this._authorized;
+  }
+
+  get accessToken(): string {
+    return this._accessToken;
+  }
+
+  setAccessToken(accessToken: string) {
+    this._accessToken = accessToken;
+    this._authorized = true;
+    //emit...
+  }
 }

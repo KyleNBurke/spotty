@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-redirect',
@@ -8,13 +9,11 @@ import { Router } from '@angular/router';
 })
 export class RedirectComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     const accessToken = window.location.hash.split('access_token=')[1];
-    //service.setAccessToken(accessToken)
-    //then the service will put it in local storage
-
+    this.authService.setAccessToken(accessToken);
     this.router.navigate(['/playlists']);
   }
 
