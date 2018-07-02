@@ -3,6 +3,7 @@ import { Track } from '../track/track.model';
 import { ActivatedRoute } from '@angular/router';
 import { SpotifyService } from '../shared/spotify.service';
 import { MatTable } from '@angular/material/table';
+import { Playlist2 } from '../shared/playlist2.model';
 
 @Component({
   selector: 'app-playlist',
@@ -15,17 +16,38 @@ export class PlaylistComponent implements OnInit {
   tracks: Track[] = [];
   @ViewChild(MatTable) table: MatTable<any>;
 
+  playlist: Playlist2;
+
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService) { }
 
   ngOnInit() {
-    this.spotifyService.playListsFetched.subscribe(() => {
+    /*this.spotifyService.playListsFetched.subscribe(() => {
       this.route.params.subscribe(params => {
         const id = +params['id'];
         this.spotifyService.getPlaylistTracks(id).subscribe((data: Object) => {
           this.showPlaylist(data);
         });
       });
+    });*/
+
+    //this.spotifyService.getPlaylists2();
+
+    //this.playlist = { name: '', tracks: [], tracksLoaded: false };
+    console.log(this.playlist);
+
+    this.route.params.subscribe(params => {
+      const index = +params['id'];
+      this.playlist = this.spotifyService.getPlaylist(index);
+      console.log(this.playlist);
+      
+      this.spotifyService.playlists2Fetched.subscribe(() => {
+        this.playlist = this.spotifyService.getPlaylist(index);
+        console.log(this.playlist);
+        //console.log(this.table);
+      });
     });
+
+    console.log(this.playlist);
   }
 
   showPlaylist(data: Object) {
