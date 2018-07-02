@@ -21,19 +21,35 @@ export class PlaylistComponent implements OnInit {
       this.route.params.subscribe(params => {
         const id = +params['id'];
         this.spotifyService.getPlaylistTracks(id).subscribe((data: Object) => {
-          this.tracks = [];
-
-          for(let i in data['items']) {
-            const trackData = data['items'][i]['track'];
-            const track = { 'title': trackData['name'], 'artist': trackData['artists'], 'album': trackData['album']};
-            this.tracks.push(track);
-          }
-
-          console.log(this.tracks);
-          this.table.renderRows();
+          this.showPlaylist(data);
         });
       });
     });
+  }
+
+  showPlaylist(data: Object) {
+    console.log(data);
+    this.tracks = [];
+
+    for(let i in data['items']) {
+      const trackData = data['items'][i]['track'];
+      let artists: string[] = [];
+
+      for(let j in trackData['artists']) {
+        const name = trackData['artists'][j]['name'];
+        artists.push(j === '0' ? name : ' ' + name);
+      }
+
+      const track = {
+        'title': trackData['name'],
+        'artist': artists,
+        'album': trackData['album']['name'],
+        'id': trackData['id']
+      };
+      this.tracks.push(track);
+    }
+
+    this.table.renderRows();
   }
 
 }
