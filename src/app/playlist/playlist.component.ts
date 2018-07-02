@@ -10,6 +10,7 @@ import { MatTable } from '@angular/material/table';
   styleUrls: ['./playlist.component.scss']
 })
 export class PlaylistComponent implements OnInit {
+  name: string;
   displayColumns: string[] = ['title', 'artist', 'album'];
   tracks: Track[] = [];
   @ViewChild(MatTable) table: MatTable<any>;
@@ -28,6 +29,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   showPlaylist(data: Object) {
+    console.log(data);
     this.tracks = [];
 
     for(let i in data['items']) {
