@@ -39,4 +39,4 @@ testem.log
 Thumbs.db
 
 # Client Secret
-/shared/clientSecret.ts
+src/app/shared/clientSecret.ts
