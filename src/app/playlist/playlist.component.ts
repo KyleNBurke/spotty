@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SpotifyService } from '../shared/spotify.service';
-import { MatTable } from '@angular/material/table';
 import { Playlist } from '../shared/playlist.model';
 
 @Component({
@@ -14,7 +13,7 @@ export class PlaylistComponent implements OnInit {
   playlist: Playlist;
   index: number;
 
-  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private changeDetector : ChangeDetectorRef) { }
+  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
