@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
-import { Playlist } from '../playlists/playlist.model';
+import { Subject } from 'rxjs';
 import { Track } from '../track/track.model';
-import { Playlist2 } from './playlist2.model';
+import { Playlist } from './playlist.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,61 +16,74 @@ export class SpotifyService {
   private currentTrack: Track;
   currentTrackChanged = new Subject<Track>();
 
-  private playlists: Playlist[] = [];
-  playListsFetched = new Subject<Playlist[]>();
-
-  private _playlists2: Playlist2[] = [];
-  playlists2Fetched = new Subject<Playlist2[]>();
+  private _playlists: Playlist[] = [];
+  playlists2Fetched = new Subject<Playlist[]>();
+  playlist2TracksFetched = new Subject<Playlist>();
 
   constructor(private authService: AuthService, private httpClient: HttpClient) {
     this.accessToken = authService.accessToken;
     this.headers = this.headers.set('Authorization', 'Bearer ' + this.accessToken);
 
     this.getUserId();
-    this.getPlaylists();
 
-    this.getPlaylists2();
+    this.getPlaylists();
   }
 
   getPlaylists() {
     const endpoint = 'https://api.spotify.com/v1/me/playlists';
-    
-    this.httpClient.get(endpoint, { headers: this.headers }).subscribe((data: Object) => {
-      for(let item in data['items']) {
-        const playlist = data['items'][item];
-        const playlistToAdd: Playlist = {name: playlist['name'], id: playlist['id']};
-        this.playlists.push(playlistToAdd);
-      }
-
-      this.playListsFetched.next(this.playlists);
-    });
-  }
-
-  getPlaylists2() {
-    const endpoint = 'https://api.spotify.com/v1/me/playlists';
 
     this.httpClient.get(endpoint, { headers: this.headers }).subscribe((data: Object) => {
-      //console.log(data);
-
       for(let i in data['items']) {
-        const playlist: Playlist2 = {
+        const playlist: Playlist = {
           name: data['items'][i]['name'],
           tracksLoaded: false,
-          tracks: []
+          tracks: [],
+          id: data['items'][i]['id']
         };
-        this._playlists2.push(playlist);
+        this._playlists.push(playlist);
       }
 
-      this.playlists2Fetched.next(this._playlists2);
+      this.playlists2Fetched.next(this._playlists);
     });
   }
 
   getPlaylist(index: number) {
-    return this._playlists2[index];
+    return this._playlists[index];
   }
 
-  get playlists2(): Playlist2[] {
-    return this._playlists2;
+  fetchPlaylistTracks(index: number) {
+    const playlistId = this._playlists[index].id;
+    const endpoint = 'https://api.spotify.com/v1/users/' + this.userId + '/playlists/' + playlistId + '/tracks';
+
+    this.httpClient.get(endpoint, { headers: this.headers }).subscribe((data: Object) => {
+      this._playlists[index].tracks = [];
+
+      for(let i in data['items']) {
+        const trackData = data['items'][i]['track'];
+        let artists: string[] = [];
+  
+        for(let j in trackData['artists']) {
+          const name = trackData['artists'][j]['name'];
+          artists.push(j === '0' ? name : ' ' + name);
+        }
+  
+        const track = {
+          'title': trackData['name'],
+          'artist': artists,
+          'album': trackData['album']['name'],
+          'uri': trackData['uri'],
+          'artwork': trackData['album']['images'][2]['url']
+        };
+        this._playlists[index].tracks.push(track);
+      }
+
+      this._playlists[index].tracksLoaded = true;
+      this.playlist2TracksFetched.next(this._playlists[index]);
+    });
+  }
+
+  get playlists(): Playlist[] {
+    return this._playlists;
   }
 
   private getUserId() {
@@ -80,13 +92,6 @@ export class SpotifyService {
     this.httpClient.get(endpoint, { headers: this.headers }).subscribe((data: Object) => {
       this.userId = data['id'];
     });
-  }
-
-  getPlaylistTracks(index: number): Observable<Object> {
-    const playlistId = this.playlists[index].id;
-    const endpoint = 'https://api.spotify.com/v1/users/' + this.userId + '/playlists/' + playlistId + '/tracks';
-
-    return this.httpClient.get(endpoint, { headers: this.headers });
   }
 
   playSong(track: Track) {
