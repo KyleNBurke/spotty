@@ -1,20 +1,22 @@
-<h2 class="mat-h2">Playlist name</h2>
-<table mat-table [dataSource]="playlist.tracks" *ngIf="playlist">
-  <ng-container matColumnDef="title">
-    <th mat-header-cell *matHeaderCellDef> Title </th>
-    <td mat-cell *matCellDef="let track"> {{track.title}} </td>
-  </ng-container>
+<div *ngIf="playlist">
+  <h2 class="mat-h2">{{playlist.name}}</h2>
+  <table mat-table [dataSource]="playlist.tracks">
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Title </th>
+      <td mat-cell *matCellDef="let track"> {{track.title}} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="artist">
-    <th mat-header-cell *matHeaderCellDef> Artist </th>
-    <td mat-cell *matCellDef="let track"> {{track.artist}} </td>
-  </ng-container>
+    <ng-container matColumnDef="artist">
+      <th mat-header-cell *matHeaderCellDef> Artist </th>
+      <td mat-cell *matCellDef="let track"> {{track.artist}} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="album">
-    <th mat-header-cell *matHeaderCellDef> Album </th>
-    <td mat-cell *matCellDef="let track"> {{track.album}} </td>
-  </ng-container>
-  
-  <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
-  <tr mat-row *matRowDef="let myRowData; columns: displayColumns; let i = index" (click)="onPlaySong(i)"></tr>
-</table>
+    <ng-container matColumnDef="album">
+      <th mat-header-cell *matHeaderCellDef> Album </th>
+      <td mat-cell *matCellDef="let track"> {{track.album}} </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: displayColumns; let i = index" (click)="onPlaySong(i)"></tr>
+  </table>
+</div>
