@@ -37,6 +37,7 @@ export class SpotifyService {
     this.httpClient.get(endpoint, { headers: this.headers }).subscribe((data: Object) => {
       let count = 0;
       const playlistCount = Object.keys(data['items']).length;
+      this._playlists.length = playlistCount;
 
       for(let i in data['items']) {
         const playlist = data['items'][i];
@@ -44,13 +45,13 @@ export class SpotifyService {
         const id = playlist['id'];
         let tracks = [];
         this.fetchTracks(id).subscribe((data: Object) => {
-          for(let i in data['items']) {
-            const trackData = data['items'][i]['track'];
+          for(let j in data['items']) {
+            const trackData = data['items'][j]['track'];
             let artists: string[] = [];
       
-            for(let j in trackData['artists']) {
-              const name = trackData['artists'][j]['name'];
-              artists.push(j === '0' ? name : ' ' + name);
+            for(let k in trackData['artists']) {
+              const name = trackData['artists'][k]['name'];
+              artists.push(k === '0' ? name : ' ' + name);
             }
       
             const track = {
@@ -71,7 +72,7 @@ export class SpotifyService {
             id: id
           }
 
-          this._playlists.push(playlistToAdd);
+          this._playlists.splice(+i, 1, playlistToAdd);
           
           if(++count === playlistCount) {
             this.playlistsFetched.next(this._playlists);
