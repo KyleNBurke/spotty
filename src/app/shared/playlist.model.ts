@@ -1,4 +1,4 @@
-import { Track } from "../track/track.model";
+import { Track } from "./track.model";
 
 export interface Playlist {
     name: string,
