@@ -9,33 +9,44 @@ import { SpotifyService } from '../shared/spotify.service';
 })
 export class PlayerComponent implements OnInit {
   private track: Track;
-  playing: boolean = false;
-  private interval;
-  private increment;
+  private playing: boolean = false;
+  private intervalRef;
+  private interval: number = 500;
+  private sliderValue: number = 0;
+  private sliderMaxValue = 100;
 
-  constructor(private spotifyService: SpotifyService) {
+  constructor(private spotifyService: SpotifyService) { }
+
+  ngOnInit() {
     this.spotifyService.currentTrackChanged.subscribe((track: Track) => {
       this.track = track;
       this.playing = true;
+      this.interval = this.track.length / this.sliderMaxValue;
+      this.sliderValue = 0;
+      clearInterval(this.intervalRef);
+      this.intervalRef = setInterval(this.incrementSlider.bind(this), this.interval);
     });
-
-    this.interval = setInterval(this.incrementSlider, 500);
-  }
-
-  ngOnInit() {
   }
 
   onTogglePlay() {
-    if(this.playing)
+    if(this.playing) {
       this.spotifyService.pauseCurrentSong();
-    else
+      clearInterval(this.intervalRef);
+    }
+    else {
       this.spotifyService.playCurrentSong();
+      this.intervalRef = setInterval(this.incrementSlider.bind(this), this.interval);
+    }
 
     this.playing = !this.playing;
   }
 
   incrementSlider() {
-    console.log("inc");
+    this.sliderValue++;
+    
+    if(this.sliderValue == this.sliderMaxValue) {
+      this.onTogglePlay();
+    }
   }
 
 }

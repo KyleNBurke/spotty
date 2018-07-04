@@ -8,7 +8,7 @@
   </div>
   <button mat-button (click)="onTogglePlay()"><mat-icon>{{playing ? 'pause' : 'play_arrow'}}</mat-icon></button>
   <button mat-button><mat-icon>skip_previous</mat-icon></button>
-  <mat-slider></mat-slider>
+  <mat-slider min="0" max="100" value="{{sliderValue}}"></mat-slider>
   <button mat-button><mat-icon>skip_next</mat-icon></button>
   <button mat-button><mat-icon>shuffle</mat-icon></button>
 </mat-card>

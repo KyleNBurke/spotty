@@ -58,7 +58,8 @@ export class SpotifyService {
               'artist': artists,
               'album': trackData['album']['name'],
               'uri': trackData['uri'],
-              'artwork': Object.keys(trackData['album']['images']).length !== 0 ? trackData['album']['images'][2]['url'] : null
+              'artwork': Object.keys(trackData['album']['images']).length !== 0 ? trackData['album']['images'][2]['url'] : null,
+              'length': trackData['duration_ms']
             };
             
             tracks.push(track);
