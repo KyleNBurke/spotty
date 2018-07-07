@@ -20,7 +20,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import  {MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTableModule } from '@angular/material/table';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { authInterceptor } from './shared/auth.interceptor';
+import { SigninComponent } from './signin/signin.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'playlists', pathMatch: 'full' },
@@ -28,7 +30,8 @@ const routes: Routes = [
   { path: 'playlists', redirectTo: 'playlists/0', pathMatch: 'full' },
   { path: 'playlists/:id', component: PlaylistsComponent },
   { path: 'browse', component: BrowseComponent },
-  { path: 'search', component: SearchComponent }
+  { path: 'search', component: SearchComponent },
+  { path: 'signin', component: SigninComponent }
 ];
 
 @NgModule({
@@ -41,7 +44,8 @@ const routes: Routes = [
     RedirectComponent,
     NavbarComponent,
     TrackComponent,
-    PlaylistComponent
+    PlaylistComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +60,13 @@ const routes: Routes = [
     MatTableModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: authInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
