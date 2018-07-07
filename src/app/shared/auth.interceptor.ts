@@ -9,9 +9,7 @@ export class authInterceptor implements HttpInterceptor {
     constructor(private router: Router) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log(request);
         return next.handle(request).pipe(catchError((error) => {
-            console.log(error);
             if(error['error']['error']['status'] == "401") {
                 this.router.navigate(['/signin']);
             }
