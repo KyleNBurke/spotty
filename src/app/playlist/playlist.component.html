@@ -1,10 +1,11 @@
 <div *ngIf="playlist">
   <div>
     <img *ngIf="playlist.image" src="{{playlist.image}}" width="200px">
-    <div *ngIf="!playlist.image" class="noImage"><mat-icon>broken_image</mat-icon></div>
-    <h2 class="mat-title">{{playlist.name}}</h2>
-    <p class="mat-body-1">{{ playlist.public ? 'public' : 'private' }}</p>
+    <div *ngIf="!playlist.image" class="noImage"></div>
+    <h1 class="mat-headline">{{playlist.name}}</h1>
     <p class="mat-body-1">{{ playlist.tracks.length }} songs</p>
+    <p class="mat-body-1">{{ playlist.public ? 'public' : 'private' }}</p>
+    <button mat-icon-button (click)="onEdit()"><mat-icon>edit</mat-icon></button>
   </div>
   <table mat-table [dataSource]="playlist.tracks">
     <ng-container matColumnDef="title">
