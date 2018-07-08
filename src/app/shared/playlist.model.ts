@@ -5,5 +5,6 @@ export interface Playlist {
     tracks: Track[],
     id: string,
     image: string,
-    public: boolean
+    public: boolean,
+    owner: string
 }

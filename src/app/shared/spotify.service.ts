@@ -12,7 +12,7 @@ export class SpotifyService {
   private accessToken: string;
   private headers: HttpHeaders = new HttpHeaders();
 
-  private userId: string;
+  private _userId: string;
   userIdFetched = new Subject<string>();
 
   private currentTrack: Track;
@@ -45,6 +45,7 @@ export class SpotifyService {
         const id = playlist['id'];
         const image = Object.keys(playlist['images']).length === 0 ? null : playlist['images'][0]['url'];
         const publicPlaylist = playlist['public'];
+        const owner = playlist['owner']['id'];
         let tracks = [];
         this.fetchTracks(id).subscribe((data: Object) => {
           for(let j in data['items']) {
@@ -73,7 +74,8 @@ export class SpotifyService {
             tracks: tracks,
             id: id,
             image: image,
-            public: publicPlaylist
+            public: publicPlaylist,
+            owner: owner
           }
 
           this._playlists.splice(+i, 1, playlistToAdd);
@@ -87,7 +89,7 @@ export class SpotifyService {
   }
 
   fetchTracks(id: string) {
-    const endpoint = 'https://api.spotify.com/v1/users/' + this.userId + '/playlists/' + id + '/tracks';
+    const endpoint = 'https://api.spotify.com/v1/users/' + this._userId + '/playlists/' + id + '/tracks';
 
     return this.httpClient.get(endpoint, { headers: this.headers });
   }
@@ -100,12 +102,16 @@ export class SpotifyService {
     return this._playlists;
   }
 
+  get userId(): string {
+    return this._userId;
+  }
+
   private fetchUserId() {
     const endpoint = 'https://api.spotify.com/v1/me';
 
     this.httpClient.get(endpoint, { headers: this.headers }).subscribe((data: Object) => {
-      this.userId = data['id'];
-      this.userIdFetched.next(this.userId);
+      this._userId = data['id'];
+      this.userIdFetched.next(this._userId);
     });
   }
 

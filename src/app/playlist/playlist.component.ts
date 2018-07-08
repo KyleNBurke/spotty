@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SpotifyService } from '../shared/spotify.service';
 import { Playlist } from '../shared/playlist.model';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { EditComponent } from './edit/edit.component';
 
 @Component({
   selector: 'app-playlist',
@@ -13,7 +15,7 @@ export class PlaylistComponent implements OnInit {
   playlist: Playlist;
   index: number;
 
-  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService) { }
+  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -31,7 +33,13 @@ export class PlaylistComponent implements OnInit {
   }
 
   onEdit() {
-    
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      name: this.playlist.name,
+      public: this.playlist.public
+    }
+
+    this.dialog.open(EditComponent, dialogConfig);
   }
 
 }
