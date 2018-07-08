@@ -43,6 +43,8 @@ export class SpotifyService {
         const playlist = data['items'][i];
         const name = playlist['name'];
         const id = playlist['id'];
+        const image = Object.keys(playlist['images']).length === 0 ? null : playlist['images'][0]['url'];
+        const publicPlaylist = playlist['public'];
         let tracks = [];
         this.fetchTracks(id).subscribe((data: Object) => {
           for(let j in data['items']) {
@@ -69,7 +71,9 @@ export class SpotifyService {
           const playlistToAdd: Playlist = {
             name: name,
             tracks: tracks,
-            id: id
+            id: id,
+            image: image,
+            public: publicPlaylist
           }
 
           this._playlists.splice(+i, 1, playlistToAdd);

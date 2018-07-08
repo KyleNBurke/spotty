@@ -7,3 +7,15 @@ table {
     background-color: lightgrey;
     cursor: pointer;
 }
+
+img {
+    float: left;
+    margin-right: 20px;
+}
+
+.noImage {
+    float: left;
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
+}
