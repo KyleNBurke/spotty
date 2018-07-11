@@ -1,10 +1,14 @@
+@import '../../styles.scss';
+
+$primary: map-get($theme, primary);
+
 table {
     width: 100%;
     margin-bottom: 100px;
 }
 
 .mat-row:hover {
-    background-color: lightgrey;
+    background-color: mat-color($primary, 50);
     cursor: pointer;
 }
 

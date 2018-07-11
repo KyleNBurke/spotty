@@ -8,7 +8,27 @@
   </div>
   <button mat-icon-button (click)="onTogglePlay()"><mat-icon>{{playing ? 'pause' : 'play_arrow'}}</mat-icon></button>
   <button mat-icon-button><mat-icon>skip_previous</mat-icon></button>
-  <mat-slider min="0" max="100" value="{{sliderValue}}"></mat-slider>
+  <mat-slider min="0" max="100" value="{{sliderValue}}" color="primary" class="songSlider"></mat-slider>
   <button mat-icon-button><mat-icon>skip_next</mat-icon></button>
+  <button mat-icon-button [matMenuTriggerFor]="volumeMenu"><mat-icon>volume_up</mat-icon></button>
   <button mat-icon-button><mat-icon>shuffle</mat-icon></button>
+  <button mat-icon-button [matMenuTriggerFor]="moreMenu"><mat-icon>more_vert</mat-icon></button>
 </mat-card>
+
+<mat-menu #volumeMenu>
+  <button mat-icon-button><mat-icon>volume_up</mat-icon></button>
+  <mat-slider min="0" max="100" value="{{sliderValue}}" color="primary" vertical="true"></mat-slider>
+  <button mat-icon-button><mat-icon>volume_down</mat-icon></button>
+</mat-menu>
+
+<mat-menu #moreMenu>
+  <button mat-menu-item [matMenuTriggerFor]="addToPlaylistMenu">Add to playlist</button>
+  <button mat-menu-item>Remove from playlist</button>
+</mat-menu>
+
+<mat-menu #addToPlaylistMenu>
+  <button mat-menu-item>Playlist 1...</button>
+  <button mat-menu-item>Playlist 2...</button>
+  <button mat-menu-item>Playlist 3...</button>
+  <button mat-menu-item>Playlist 4...</button>
+</mat-menu>

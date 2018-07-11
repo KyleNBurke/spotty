@@ -49,4 +49,8 @@ export class PlayerComponent implements OnInit {
     }
   }
 
+  onShowMenu() {
+    console.log("show menu");
+  }
+
 }
