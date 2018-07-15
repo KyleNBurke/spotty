@@ -1,18 +1,23 @@
-.row {
-    margin-top: 20px;
+@import '../../styles.scss';
+
+.mat-drawer-container {
+    background-color: inherit;
 }
 
-.side {
-    float: left;
-    width: 15%;
+.mat-drawer {
+    background-color: $background-dark;
 }
 
-.main {
-    float: left;
-    width: 85%;
+.mat-drawer-content {
+    padding: 30px;
 }
 
-button {
+.mat-button {
+    max-width: 220px;
     width: 100%;
     text-align: left;
+}
+
+.active {
+    color: $primary;
 }

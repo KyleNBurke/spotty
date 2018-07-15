@@ -1,15 +1,18 @@
 @import '../../styles.scss';
 
-$primary: map-get($theme, primary);
-
-table {
+.mat-table {
     width: 100%;
     margin-bottom: 100px;
+    background: inherit;
 }
 
 .mat-row:hover {
-    background-color: mat-color($primary, 100);
+    background-color: $background-dark;
     cursor: pointer;
+}
+
+.mat-cell {
+    color: inherit;
 }
 
 img {
@@ -26,5 +29,6 @@ img {
 }
 
 .active {
-    background-color: mat-color($primary, 50);
+    background-color: $background-dark;
+    color: $primary;
 }

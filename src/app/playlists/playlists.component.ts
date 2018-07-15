@@ -11,6 +11,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class PlaylistsComponent implements OnInit {
   playlists: Playlist[] = [];
   static _playlistsFetched = false;
+  selectedPlaylist: number;
 
   constructor(private spotifyService: SpotifyService) { }
 
@@ -27,4 +28,7 @@ export class PlaylistsComponent implements OnInit {
     return PlaylistsComponent._playlistsFetched;
   }
 
+  onSelectedPlaylistChanged(index: number) {
+    this.selectedPlaylist = index;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SpotifyService } from '../shared/spotify.service';
 import { Playlist } from '../shared/playlist.model';
@@ -14,6 +14,7 @@ export class PlaylistComponent implements OnInit {
   displayColumns: string[] = ['title', 'artist', 'album'];
   playlist: Playlist;
   playlistIndex: number;
+  @Output() selectedPlaylistChanged = new EventEmitter();
   trackIndex: number;
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private dialog: MatDialog) { }
@@ -22,6 +23,7 @@ export class PlaylistComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.playlistIndex = +params['id'];
       this.playlist = this.spotifyService.getPlaylist(this.playlistIndex);
+      this.selectedPlaylistChanged.emit(this.playlistIndex);
     });
 
     this.spotifyService.playlistsFetched.subscribe(() => {

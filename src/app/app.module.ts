@@ -30,6 +30,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 const routes: Routes = [
   { path: '', redirectTo: 'playlists', pathMatch: 'full' },
@@ -72,7 +74,9 @@ const routes: Routes = [
     MatInputModule,
     MatRadioModule,
     FormsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSidenavModule,
+    MatListModule
   ],
   providers: [
     {

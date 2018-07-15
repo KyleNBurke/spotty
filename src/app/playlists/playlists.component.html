@@ -1,10 +1,12 @@
-<div class="row">
-  <div class="side">
-    <div *ngIf="playlistsFetched">
-      <button mat-button *ngFor="let playlist of playlists; let i = index" [routerLink]="['../', i]">{{playlist.name}}</button>
-    </div>
-  </div>
-  <div class="main">
-    <app-playlist></app-playlist>
-  </div>
-</div>
+<mat-drawer-container *ngIf="playlistsFetched">
+  <mat-drawer mode="side" opened>
+    <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let playlist of playlists; let i = index">
+        <button mat-button [routerLink]="['../', i]" [class.active]="selectedPlaylist === i">{{playlist.name}}</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-playlist (selectedPlaylistChanged)="onSelectedPlaylistChanged($event)"></app-playlist>
+  </mat-drawer-content>
+</mat-drawer-container>
