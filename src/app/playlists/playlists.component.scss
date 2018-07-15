@@ -5,6 +5,8 @@
 }
 
 .mat-drawer {
+    position: fixed;
+    top: 64px;
     background-color: $background-dark;
 }
 
