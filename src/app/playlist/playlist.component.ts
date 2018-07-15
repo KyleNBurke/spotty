@@ -11,7 +11,7 @@ import { EditComponent } from './edit/edit.component';
   styleUrls: ['./playlist.component.scss']
 })
 export class PlaylistComponent implements OnInit {
-  displayColumns: string[] = ['actions', 'title', 'artist', 'album'];
+  displayColumns: string[] = ['actions', 'title', 'artist', 'album', 'length'];
   playlist: Playlist;
   playlistIndex: number;
   @Output() selectedPlaylistChanged = new EventEmitter();
