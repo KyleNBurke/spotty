@@ -13,23 +13,25 @@ import { EditComponent } from './edit/edit.component';
 export class PlaylistComponent implements OnInit {
   displayColumns: string[] = ['title', 'artist', 'album'];
   playlist: Playlist;
-  index: number;
+  playlistIndex: number;
+  trackIndex: number;
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.index = +params['id'];
-      this.playlist = this.spotifyService.getPlaylist(this.index);
+      this.playlistIndex = +params['id'];
+      this.playlist = this.spotifyService.getPlaylist(this.playlistIndex);
     });
 
     this.spotifyService.playlistsFetched.subscribe(() => {
-      this.playlist = this.spotifyService.getPlaylist(this.index);
+      this.playlist = this.spotifyService.getPlaylist(this.playlistIndex);
     });
   }
 
   onPlaySong(index: number) {
-    this.spotifyService.playSong(this.playlist.tracks[index]);
+    this.trackIndex = index;
+    this.spotifyService.playSong(this.playlist.tracks[this.trackIndex]);
   }
 
   onEdit() {

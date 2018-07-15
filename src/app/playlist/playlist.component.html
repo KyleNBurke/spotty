@@ -7,6 +7,7 @@
     <p class="mat-body-1" *ngIf="playlist.owner == spotifyService.userId">{{ playlist.public ? 'public' : 'private' }}</p>
     <button mat-icon-button (click)="onEdit()" *ngIf="playlist.owner == spotifyService.userId"><mat-icon>edit</mat-icon></button>
   </div>
+
   <table mat-table [dataSource]="playlist.tracks">
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef> Title </th>
@@ -24,6 +25,6 @@
     </ng-container>
     
     <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
-    <tr mat-row *matRowDef="let myRowData; columns: displayColumns; let i = index" (click)="onPlaySong(i)"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: displayColumns; let i = index" (click)="onPlaySong(i)" [class.active]="i === trackIndex"></tr>
   </table>
 </div>
