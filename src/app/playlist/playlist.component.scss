@@ -21,11 +21,14 @@ img {
 
 .mat-row:hover {
     background-color: $background-dark;
-    cursor: pointer;
 
     .table-play-arrow {
         visibility: visible;
     }
+}
+
+.mat-column-title:hover {
+    cursor: pointer;
 }
 
 .active {
@@ -50,4 +53,9 @@ img {
 
 .table-play-arrow {
     visibility: hidden;
+}
+
+.mat-column-album span:hover, .mat-column-artist span:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
