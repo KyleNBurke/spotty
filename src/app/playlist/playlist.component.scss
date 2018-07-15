@@ -1,20 +1,5 @@
 @import '../../styles.scss';
 
-.mat-table {
-    width: 100%;
-    margin-bottom: 100px;
-    background: inherit;
-}
-
-.mat-row:hover {
-    background-color: $background-dark;
-    cursor: pointer;
-}
-
-.mat-cell {
-    color: inherit;
-}
-
 img {
     float: left;
     margin-right: 20px;
@@ -28,7 +13,41 @@ img {
     background-color: lightgrey;
 }
 
+.mat-table {
+    width: 100%;
+    margin-bottom: 100px;
+    background: inherit;
+}
+
+.mat-row:hover {
+    background-color: $background-dark;
+    cursor: pointer;
+
+    .table-play-arrow {
+        visibility: visible;
+    }
+}
+
 .active {
     background-color: $background-dark;
     color: $primary;
+
+    .table-play-arrow {
+        visibility: visible;
+    }
+}
+
+.mat-cell {
+    color: inherit;
+}
+
+.mat-column-actions {
+    padding-left: 0 !important;
+    padding-right: 10px !important;
+    width: 1%;
+    white-space: nowrap;
+}
+
+.table-play-arrow {
+    visibility: hidden;
 }
