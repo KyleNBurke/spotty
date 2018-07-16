@@ -37,6 +37,15 @@
 
 .trackData {
     display: inline-block;
+
+    .trackTitle {
+        margin-top: 20px;
+        margin-bottom: 5px;
+    }
+
+    .trackArtist {
+        margin-top: 5px;
+    }
 }
 
 .artist:hover {

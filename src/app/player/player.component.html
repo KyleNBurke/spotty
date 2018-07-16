@@ -4,8 +4,8 @@
     <div *ngIf="track">
       <img src='{{track.artwork}}' class="trackImage">
       <div class="trackData">
-        <p>{{track.title}}</p>
-        <p>
+        <p class="trackTitle">{{track.title}}</p>
+        <p class="trackArtist">
           <span *ngFor="let artist of track.artist; let i = index">
             <span class="artist">{{artist}}</span>
             <span *ngIf="i !== track.artist.length - 1">, </span>
