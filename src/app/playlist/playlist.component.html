@@ -24,7 +24,12 @@
 
     <ng-container matColumnDef="artist">
       <th mat-header-cell *matHeaderCellDef> Artist </th>
-      <td mat-cell *matCellDef="let track"><span>{{track.artist}}</span></td>
+      <td mat-cell *matCellDef="let track">
+        <span *ngFor="let artist of track.artist; let i = index">
+          <span class="artist">{{artist}}</span>
+          <span *ngIf="i !== track.artist.length - 1">, </span>
+        </span>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="album">

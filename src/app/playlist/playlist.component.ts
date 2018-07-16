@@ -24,6 +24,7 @@ export class PlaylistComponent implements OnInit {
       this.playlistIndex = +params['id'];
       this.playlist = this.spotifyService.getPlaylist(this.playlistIndex);
       this.selectedPlaylistChanged.emit(this.playlistIndex);
+      console.log(this.playlist);
     });
 
     this.spotifyService.playlistsFetched.subscribe(() => {

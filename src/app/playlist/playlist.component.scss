@@ -55,7 +55,7 @@ img {
     visibility: hidden;
 }
 
-.mat-column-album span:hover, .mat-column-artist span:hover {
+.mat-column-album span:hover, .mat-column-artist .artist:hover {
     text-decoration: underline;
     cursor: pointer;
 }

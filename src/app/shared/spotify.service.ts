@@ -54,7 +54,7 @@ export class SpotifyService {
       
             for(let k in trackData['artists']) {
               const name = trackData['artists'][k]['name'];
-              artists.push(k === '0' ? name : ' ' + name);
+              artists.push(name);
             }
 
             let s = trackData['duration_ms'];
