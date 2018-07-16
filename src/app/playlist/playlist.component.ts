@@ -33,7 +33,7 @@ export class PlaylistComponent implements OnInit {
 
   onPlaySong(index: number) {
     this.trackIndex = index;
-    this.spotifyService.playSong(this.playlist.tracks[this.trackIndex]);
+    this.spotifyService.playSong(this.playlist.tracks[this.trackIndex], this.playlist.uri, index);
   }
 
   onEdit() {

@@ -52,6 +52,14 @@ export class PlayerComponent implements OnInit {
     this.playing = !this.playing;
   }
 
+  onPrev() {
+    this.spotifyService.playNextSong();
+  }
+
+  onNext() {
+    this.spotifyService.playPrevSong();
+  }
+
   onToggleShuffle() {
     this.shuffle = !this.shuffle;
   }

@@ -45,6 +45,7 @@ export class SpotifyService {
         const playlist = data['items'][i];
         const name = playlist['name'];
         const id = playlist['id'];
+        const uri = playlist['uri'];
         const image = Object.keys(playlist['images']).length === 0 ? null : playlist['images'][0]['url'];
         const publicPlaylist = playlist['public'];
         const owner = playlist['owner']['id'];
@@ -83,6 +84,7 @@ export class SpotifyService {
             name: name,
             tracks: tracks,
             id: id,
+            uri: uri,
             image: image,
             public: publicPlaylist,
             owner: owner
@@ -130,33 +132,46 @@ export class SpotifyService {
     });
   }
 
-  playSong(track: Track) {
+  playSong(track: Track, contextUri: string, offset: number) {
     this.currentTrack = track;
     this.currentTrackChanged.next(this.currentTrack);
 
     const endpoint = 'https://api.spotify.com/v1/me/player/play';
     const bodyParams = {
-      uris: [this.currentTrack.uri]
+      context_uri: contextUri,
+      offset: offset
     }
 
-    //this.httpClient.put(endpoint, bodyParams, { headers: this.headers }).subscribe((data: Object) => {
+    this.httpClient.put(endpoint, bodyParams, { headers: this.headers }).subscribe((data: Object) => {
       //console.log(data);
-    //});
+    });
   }
 
   playCurrentSong() {
     const endpoint = 'https://api.spotify.com/v1/me/player/play';
 
-    //this.httpClient.put(endpoint, null, { headers: this.headers }).subscribe((data: Object) => {
+    this.httpClient.put(endpoint, null, { headers: this.headers }).subscribe((data: Object) => {
       //console.log(data);
-    //});
+    });
   }
 
   pauseCurrentSong() {
     const endpoint = 'https://api.spotify.com/v1/me/player/pause';
 
-    //this.httpClient.put(endpoint, null, { headers: this.headers }).subscribe((data: Object) => {
+    this.httpClient.put(endpoint, null, { headers: this.headers }).subscribe((data: Object) => {
       //console.log(data);
-    //});
+    });
+  }
+
+  playPrevSong() {
+    const endpoint = 'https://api.spotify.com/v1/me/player/previous';
+
+    this.httpClient.post(endpoint, null, { headers: this.headers }).subscribe((data: Object) => {
+      console.log(data);
+    });
+  }
+
+  playNextSong() {
+
   }
 }
