@@ -1,4 +1,4 @@
-.test {
+.trackSlider {
     position: fixed;
     padding: 0;
     bottom: 64px;
@@ -16,5 +16,30 @@
 	right: 0;
     bottom: 0;
     padding: 10px;
+    height: 68px;
     z-index: 100;
+}
+
+.centerItems {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.trackImage {
+    float: left;
+    margin: 10px 10px 10px 0px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.trackData {
+    display: inline-block;
+}
+
+.artist:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }

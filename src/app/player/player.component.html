@@ -1,41 +1,36 @@
-<div *ngIf="track">
-  <mat-slider min="0" max="100" value="10" color="primary" class="test"></mat-slider>
-  <mat-card>
-    <!-- <div class="left-items">
-      <div class="display-inline-block">
-        <img src='{{track.artwork}}' alt="">
-      </div>
-      <div class="display-inline-block">
-          <p>{{track.title}}</p>
-          <p>{{track.artist}}</p>
+<mat-slider min="0" max="100" value="10" color="primary" class="trackSlider"></mat-slider>
+<mat-card>
+  <div>
+    <div *ngIf="track">
+      <img src='{{track.artwork}}' class="trackImage">
+      <div class="trackData">
+        <p>{{track.title}}</p>
+        <p>
+          <span *ngFor="let artist of track.artist; let i = index">
+            <span class="artist">{{artist}}</span>
+            <span *ngIf="i !== track.artist.length - 1">, </span>
+          </span>
+        </p>
       </div>
     </div>
-    <button mat-icon-button (click)="onTogglePlay()"><mat-icon>{{playing ? 'pause' : 'play_arrow'}}</mat-icon></button>
+  </div>
+  <div class="centerItems">
+    <button mat-icon-button (click)="onChangeRepeat()">
+      <mat-icon [color]="repeat === 0 ? 'null' : 'primary'">{{repeat === repeatType.repeatTrack ? 'repeat_one' : 'repeat'}}</mat-icon>
+    </button>
     <button mat-icon-button><mat-icon>skip_previous</mat-icon></button>
-    <mat-slider min="0" max="100" value="{{sliderValue}}" color="primary" class="songSlider"></mat-slider>
+    <button mat-mini-fab color="primary" (click)="onTogglePlay()"><mat-icon>{{playing ? 'pause' : 'play_arrow'}}</mat-icon></button>
     <button mat-icon-button><mat-icon>skip_next</mat-icon></button>
-    <button mat-icon-button [matMenuTriggerFor]="volumeMenu"><mat-icon>volume_up</mat-icon></button>
-    <button mat-icon-button><mat-icon>shuffle</mat-icon></button>
-    <button mat-icon-button><mat-icon>repeat</mat-icon></button>
-    <button mat-icon-button [matMenuTriggerFor]="moreMenu"><mat-icon>more_vert</mat-icon></button> -->
-
-    <div>
-      <img src='{{track.artwork}}'>
-    </div>
-    <div>
-      <button mat-icon-button><mat-icon>repeat</mat-icon></button>
-      <button mat-icon-button><mat-icon>skip_previous</mat-icon></button>
-      <button mat-mini-fab color="primary"><mat-icon>{{playing ? 'pause' : 'play_arrow'}}</mat-icon></button>
-      <button mat-icon-button><mat-icon>skip_next</mat-icon></button>
-      <button mat-icon-button><mat-icon>shuffle</mat-icon></button>
-    </div>
-    <div>
-      <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
-      <button mat-icon-button><mat-icon>volume_up</mat-icon></button>
-      <mat-slider min="0" max="100" value="10" color="primary"></mat-slider>
-    </div>
-  </mat-card>
-</div>
+    <button mat-icon-button (click)="onToggleShuffle()">
+      <mat-icon [color]="shuffle ? 'primary' : 'null'">shuffle</mat-icon>
+    </button>
+  </div>
+  <div>
+    <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
+    <button mat-icon-button (click)="onToggleVolume()"><mat-icon>{{volume ? 'volume_up' : 'volume_off'}}</mat-icon></button>
+    <mat-slider min="0" max="100" value="10" color="primary" [disabled]="!volume"></mat-slider>
+  </div>
+</mat-card>
 
 <mat-menu #volumeMenu>
   <button mat-icon-button><mat-icon>volume_up</mat-icon></button>

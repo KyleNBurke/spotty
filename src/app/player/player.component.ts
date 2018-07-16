@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Track } from '../shared/track.model';
 import { SpotifyService } from '../shared/spotify.service';
 
+enum RepeatType {
+  none = 0,
+  repeatPlaylist,
+  repeatTrack
+}
+
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
@@ -14,6 +20,11 @@ export class PlayerComponent implements OnInit {
   private interval: number = 500;
   private sliderValue: number = 0;
   private sliderMaxValue = 100;
+  private shuffle: boolean = false;
+  private repeatType = RepeatType;
+  private repeat: RepeatType = this.repeatType.none;
+  private volume: boolean = true;
+  
 
   constructor(private spotifyService: SpotifyService) { }
 
@@ -39,6 +50,18 @@ export class PlayerComponent implements OnInit {
     }
 
     this.playing = !this.playing;
+  }
+
+  onToggleShuffle() {
+    this.shuffle = !this.shuffle;
+  }
+
+  onChangeRepeat() {
+    this.repeat = ++this.repeat % 3;
+  }
+
+  onToggleVolume() {
+    this.volume = !this.volume;
   }
 
   incrementSlider() {
