@@ -34,7 +34,7 @@
 
     <ng-container matColumnDef="length">
       <th mat-header-cell *matHeaderCellDef> Length </th>
-      <td mat-cell *matCellDef="let track"><span>{{track.length}}</span></td>
+      <td mat-cell *matCellDef="let track"><span>{{track.lengthFormatted}}</span></td>
     </ng-container>
     
     <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>

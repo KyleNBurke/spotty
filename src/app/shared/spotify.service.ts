@@ -56,6 +56,13 @@ export class SpotifyService {
               const name = trackData['artists'][k]['name'];
               artists.push(k === '0' ? name : ' ' + name);
             }
+
+            let s = trackData['duration_ms'];
+            let ms = s % 1000;
+            s = (s - ms) / 1000;
+            let secs = s % 60;
+            s = (s - secs) / 60;
+            let mins = s % 60;
       
             const track = {
               'title': trackData['name'],
@@ -63,7 +70,8 @@ export class SpotifyService {
               'album': trackData['album']['name'],
               'uri': trackData['uri'],
               'artwork': Object.keys(trackData['album']['images']).length !== 0 ? trackData['album']['images'][2]['url'] : null,
-              'length': trackData['duration_ms']
+              'length': +trackData['duration_ms'],
+              'lengthFormatted': mins + ":" + (secs.toString().length < 2 ? '0' + secs : secs)
             };
             
             tracks.push(track);
