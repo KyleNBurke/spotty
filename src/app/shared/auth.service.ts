@@ -4,20 +4,24 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  private _authorized: boolean = false;
+  authorized: boolean = false;
   private _accessToken: string;
 
   constructor() {
-    const accessToken = window.localStorage.getItem('accessToken');
+    const accessTokenStorage = window.localStorage.getItem('accessToken');
 
-    if(accessToken !== null) {
-      this._accessToken = accessToken;
-      this._authorized = true;
+    if(accessTokenStorage !== null) {
+      this._accessToken = accessTokenStorage;
+      this.authorized = true;
+      return;
     }
-  }
 
-  get authorized(): boolean {
-    return this._authorized;
+    const accessTokenHash = window.location.hash.split('access_token=');
+    
+    if(accessTokenHash.length === 2) {
+      const accessToken = accessTokenHash[1].split('&')[0];
+      this.setAccessToken(accessToken);
+    }
   }
 
   get accessToken(): string {
@@ -27,7 +31,10 @@ export class AuthService {
   setAccessToken(accessToken: string) {
     this._accessToken = accessToken;
     window.localStorage.setItem('accessToken', this._accessToken);
-    this._authorized = true;
-    //emit...
+    this.authorized = true;
+  }
+
+  removeAccessToken() {
+    window.localStorage.removeItem('accessToken');
   }
 }

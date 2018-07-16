@@ -13,7 +13,9 @@ export class SpotifyService {
   private headers: HttpHeaders = new HttpHeaders();
 
   private _userId: string;
-  userIdFetched = new Subject<string>();
+  private _userDisplayName: string;
+  userDataFetched = new Subject<string>();
+
 
   private currentTrack: Track;
   currentTrackChanged = new Subject<Track>();
@@ -25,8 +27,8 @@ export class SpotifyService {
     this.accessToken = authService.accessToken;
     this.headers = this.headers.set('Authorization', 'Bearer ' + this.accessToken);
 
-    this.fetchUserId();
-    this.userIdFetched.subscribe(() => {
+    this.fetchUserData();
+    this.userDataFetched.subscribe(() => {
       this.fetchPlaylists();
     })
   }
@@ -114,12 +116,17 @@ export class SpotifyService {
     return this._userId;
   }
 
-  private fetchUserId() {
+  get userDisplayName(): string {
+    return this._userDisplayName;
+  }
+
+  private fetchUserData() {
     const endpoint = 'https://api.spotify.com/v1/me';
 
     this.httpClient.get(endpoint, { headers: this.headers }).subscribe((data: Object) => {
       this._userId = data['id'];
-      this.userIdFetched.next(this._userId);
+      this._userDisplayName = data['display_name'] ? data['display_name'] : this._userId;
+      this.userDataFetched.next(this._userId);
     });
   }
 
