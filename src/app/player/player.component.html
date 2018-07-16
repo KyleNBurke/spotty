@@ -18,9 +18,9 @@
     <button mat-icon-button (click)="onChangeRepeat()">
       <mat-icon [color]="repeat === 0 ? 'null' : 'primary'">{{repeat === repeatType.repeatTrack ? 'repeat_one' : 'repeat'}}</mat-icon>
     </button>
-    <button mat-icon-button><mat-icon>skip_previous</mat-icon></button>
+    <button mat-icon-button (click)="onPrev()"><mat-icon>skip_previous</mat-icon></button>
     <button mat-mini-fab color="primary" (click)="onTogglePlay()"><mat-icon>{{playing ? 'pause' : 'play_arrow'}}</mat-icon></button>
-    <button mat-icon-button><mat-icon>skip_next</mat-icon></button>
+    <button mat-icon-button (click)="onNext()"><mat-icon>skip_next</mat-icon></button>
     <button mat-icon-button (click)="onToggleShuffle()">
       <mat-icon [color]="shuffle ? 'primary' : 'null'">shuffle</mat-icon>
     </button>

@@ -29,6 +29,14 @@ export class PlaylistComponent implements OnInit {
     this.spotifyService.playlistsFetched.subscribe(() => {
       this.playlist = this.spotifyService.getPlaylist(this.playlistIndex);
     });
+
+    this.spotifyService.prevTrackPlayed.subscribe(() => {
+      this.trackIndex--;
+    });
+
+    this.spotifyService.nextTrackPlayed.subscribe(() => {
+      this.trackIndex++;
+    });
   }
 
   onPlaySong(index: number) {

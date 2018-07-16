@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Track } from '../shared/track.model';
 import { SpotifyService } from '../shared/spotify.service';
 
@@ -24,7 +24,6 @@ export class PlayerComponent implements OnInit {
   private repeatType = RepeatType;
   private repeat: RepeatType = this.repeatType.none;
   private volume: boolean = true;
-  
 
   constructor(private spotifyService: SpotifyService) { }
 
@@ -53,11 +52,13 @@ export class PlayerComponent implements OnInit {
   }
 
   onPrev() {
-    this.spotifyService.playNextSong();
+    this.playing = true;
+    this.spotifyService.playPrevSong();
   }
 
   onNext() {
-    this.spotifyService.playPrevSong();
+    this.playing = true;
+    this.spotifyService.playNextSong();
   }
 
   onToggleShuffle() {

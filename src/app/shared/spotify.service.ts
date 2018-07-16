@@ -16,12 +16,14 @@ export class SpotifyService {
   private _userDisplayName: string;
   userDataFetched = new Subject<string>();
 
-
   private currentTrack: Track;
   currentTrackChanged = new Subject<Track>();
 
   private _playlists: Playlist[] = [];
   playlistsFetched = new Subject<Playlist[]>();
+
+  prevTrackPlayed = new Subject<null>();
+  nextTrackPlayed = new Subject<null>();
 
   constructor(private authService: AuthService, private httpClient: HttpClient) {
     this.accessToken = authService.accessToken;
@@ -139,7 +141,7 @@ export class SpotifyService {
     const endpoint = 'https://api.spotify.com/v1/me/player/play';
     const bodyParams = {
       context_uri: contextUri,
-      offset: offset
+      offset: { 'position': offset }
     }
 
     this.httpClient.put(endpoint, bodyParams, { headers: this.headers }).subscribe((data: Object) => {
@@ -167,11 +169,15 @@ export class SpotifyService {
     const endpoint = 'https://api.spotify.com/v1/me/player/previous';
 
     this.httpClient.post(endpoint, null, { headers: this.headers }).subscribe((data: Object) => {
-      console.log(data);
+      this.prevTrackPlayed.next();
     });
   }
 
   playNextSong() {
+    const endpoint = 'https://api.spotify.com/v1/me/player/next';
 
+    this.httpClient.post(endpoint, null, { headers: this.headers }).subscribe((data: Object) => {
+      this.nextTrackPlayed.next();
+    });
   }
 }
