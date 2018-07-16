@@ -13,7 +13,7 @@ export class authInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(catchError((error) => {
             if(error['error']['error']['status'] == "401") {
                 this.authService.authorized = false;
-                //remove access token from local storage
+                this.authService.removeAccessToken();
                 this.router.navigate(['/signin']);
             }
 

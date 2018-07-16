@@ -139,24 +139,24 @@ export class SpotifyService {
       uris: [this.currentTrack.uri]
     }
 
-    this.httpClient.put(endpoint, bodyParams, { headers: this.headers }).subscribe((data: Object) => {
+    //this.httpClient.put(endpoint, bodyParams, { headers: this.headers }).subscribe((data: Object) => {
       //console.log(data);
-    });
+    //});
   }
 
   playCurrentSong() {
     const endpoint = 'https://api.spotify.com/v1/me/player/play';
 
-    this.httpClient.put(endpoint, null, { headers: this.headers }).subscribe((data: Object) => {
+    //this.httpClient.put(endpoint, null, { headers: this.headers }).subscribe((data: Object) => {
       //console.log(data);
-    });
+    //});
   }
 
   pauseCurrentSong() {
     const endpoint = 'https://api.spotify.com/v1/me/player/pause';
 
-    this.httpClient.put(endpoint, null, { headers: this.headers }).subscribe((data: Object) => {
+    //this.httpClient.put(endpoint, null, { headers: this.headers }).subscribe((data: Object) => {
       //console.log(data);
-    });
+    //});
   }
 }
