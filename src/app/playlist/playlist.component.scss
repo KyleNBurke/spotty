@@ -1,18 +1,5 @@
 @import '../../styles.scss';
 
-img {
-    float: left;
-    margin-right: 20px;
-}
-
-.noImage {
-    float: left;
-    width: 200px;
-    height: 200px;
-    margin-right: 20px;
-    background-color: lightgrey;
-}
-
 .mat-table {
     width: 100%;
     margin-bottom: 100px;
@@ -22,7 +9,7 @@ img {
 .mat-row:hover {
     background-color: $background-dark;
 
-    .table-play-arrow {
+    .table-play-arrow, .table-more-menu, .table-queue-button {
         visibility: visible;
     }
 }
@@ -44,14 +31,21 @@ img {
     color: inherit;
 }
 
-.mat-column-actions {
+.mat-column-playButton {
     padding-left: 0 !important;
     padding-right: 10px !important;
     width: 1%;
     white-space: nowrap;
 }
 
-.table-play-arrow {
+.mat-column-trackMenu {
+    padding-left: 0 !important;
+    padding-right: 10px !important;
+    width: 1%;
+    white-space: nowrap;
+}
+
+.table-play-arrow, .table-more-menu, .table-queue-button {
     visibility: hidden;
 }
 
@@ -64,16 +58,26 @@ img {
     width: 1%;
 }
 
-.mat-display-2 {
-    margin-bottom: 48px;
+.menu-button {
+    float: right;
 }
 
-.edit-button {
-    float: right;
-    width: 60px;
-    height: 60px;
+.left {
+    float: left;
+    margin-right: 20px;
+}
 
-    .mat-icon {
-        font-size: 32px;
+.right {
+    float: left;
+    height: 200px;
+    position: relative;
+
+    .mat-display-2, .mat-body-1 {
+        margin-bottom: 12px;
     }
+}
+
+.play-button {
+    position: absolute;
+    bottom: 0;
 }
