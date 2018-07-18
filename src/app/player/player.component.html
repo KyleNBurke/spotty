@@ -1,51 +1,35 @@
 <mat-slider min="0" max="100" value="10" color="primary" class="trackSlider"></mat-slider>
 <mat-card>
   <div>
-    <div *ngIf="track">
-      <img src='{{track.artwork}}' class="trackImage">
+    <div *ngIf="playerService.currentTrack">
+      <img src='{{playerService.currentTrack.artwork}}' class="trackImage">
       <div class="trackData">
-        <p class="trackTitle">{{track.title}}</p>
+        <p class="trackTitle">{{playerService.currentTrack.title}}</p>
         <p class="trackArtist">
-          <span *ngFor="let artist of track.artist; let i = index">
+          <span *ngFor="let artist of playerService.currentTrack.artist; let i = index">
             <span class="artist">{{artist}}</span>
-            <span *ngIf="i !== track.artist.length - 1">, </span>
+            <span *ngIf="i !== playerService.currentTrack.artist.length - 1">, </span>
           </span>
         </p>
       </div>
     </div>
   </div>
   <div class="centerItems">
-    <button mat-icon-button (click)="onChangeRepeat()">
-      <mat-icon [color]="repeat === 0 ? 'null' : 'primary'">{{repeat === repeatType.repeatTrack ? 'repeat_one' : 'repeat'}}</mat-icon>
+    <button mat-icon-button (click)="playerService.changeRepeat()">
+      <mat-icon [color]="playerService.repeat === 0 ? 'null' : 'primary'">
+        {{playerService.repeat === playerService.repeatType.repeatTrack ? 'repeat_one' : 'repeat'}}
+      </mat-icon>
     </button>
-    <button mat-icon-button (click)="onPrev()"><mat-icon>skip_previous</mat-icon></button>
-    <button mat-mini-fab color="primary" (click)="onTogglePlay()"><mat-icon>{{playing ? 'pause' : 'play_arrow'}}</mat-icon></button>
-    <button mat-icon-button (click)="onNext()"><mat-icon>skip_next</mat-icon></button>
-    <button mat-icon-button (click)="onToggleShuffle()">
-      <mat-icon [color]="shuffle ? 'primary' : 'null'">shuffle</mat-icon>
+    <button mat-icon-button (click)="playerService.playPrevSong()"><mat-icon>skip_previous</mat-icon></button>
+    <button mat-mini-fab color="primary" (click)="onToggleSong()"><mat-icon>{{playerService.playing ? 'pause' : 'play_arrow'}}</mat-icon></button>
+    <button mat-icon-button (click)="playerService.playNextSong()"><mat-icon>skip_next</mat-icon></button>
+    <button mat-icon-button (click)="playerService.toggleShuffle()">
+      <mat-icon [color]="playerService.shuffle ? 'primary' : 'null'">shuffle</mat-icon>
     </button>
   </div>
   <div>
     <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
-    <button mat-icon-button (click)="onToggleVolume()"><mat-icon>{{volume ? 'volume_up' : 'volume_off'}}</mat-icon></button>
-    <mat-slider min="0" max="100" value="10" color="primary" [disabled]="!volume"></mat-slider>
+    <button mat-icon-button (click)="playerService.toggleVolume()"><mat-icon>{{playerService.volume ? 'volume_up' : 'volume_off'}}</mat-icon></button>
+    <mat-slider min="0" max="100" value="10" color="primary" [disabled]="!playerService.volume"></mat-slider>
   </div>
 </mat-card>
-
-<mat-menu #volumeMenu>
-  <button mat-icon-button><mat-icon>volume_up</mat-icon></button>
-  <mat-slider min="0" max="100" value="{{sliderValue}}" color="primary" vertical="true"></mat-slider>
-  <button mat-icon-button><mat-icon>volume_down</mat-icon></button>
-</mat-menu>
-
-<mat-menu #moreMenu>
-  <button mat-menu-item [matMenuTriggerFor]="addToPlaylistMenu">Add to playlist</button>
-  <button mat-menu-item>Remove from playlist</button>
-</mat-menu>
-
-<mat-menu #addToPlaylistMenu>
-  <button mat-menu-item>Playlist 1...</button>
-  <button mat-menu-item>Playlist 2...</button>
-  <button mat-menu-item>Playlist 3...</button>
-  <button mat-menu-item>Playlist 4...</button>
-</mat-menu>

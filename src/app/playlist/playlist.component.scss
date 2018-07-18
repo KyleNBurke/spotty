@@ -31,14 +31,7 @@
     color: inherit;
 }
 
-.mat-column-playButton {
-    padding-left: 0 !important;
-    padding-right: 10px !important;
-    width: 1%;
-    white-space: nowrap;
-}
-
-.mat-column-trackMenu {
+.mat-column-playButton, .mat-column-actions {
     padding-left: 0 !important;
     padding-right: 10px !important;
     width: 1%;

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SpotifyService } from '../shared/spotify.service';
+import { SpotifyApiService } from '../shared/spotify-api.service';
 import { Playlist } from '../shared/playlist.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
@@ -13,12 +13,12 @@ export class PlaylistsComponent implements OnInit {
   static _playlistsFetched = false;
   selectedPlaylist: number;
 
-  constructor(private spotifyService: SpotifyService) { }
+  constructor(private spotifyApiService: SpotifyApiService) { }
 
   ngOnInit() {
-    this.playlists = this.spotifyService.playlists;
+    this.playlists = this.spotifyApiService.playlists;
 
-    this.spotifyService.playlistsFetched.subscribe((playlists: Playlist[]) => {
+    this.spotifyApiService.playlistsFetched.subscribe((playlists: Playlist[]) => {
       this.playlists = playlists;
       PlaylistsComponent._playlistsFetched = true;
     });

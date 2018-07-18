@@ -6,25 +6,27 @@
     <h1 class="mat-display-2">{{playlist.name}}</h1>
     <div class="mat-body-1">Playlist</div>
     <div class="mat-body-1">Created by {{playlist.owner}}, {{playlist.tracks.length}} songs</div>
-    <div class="mat-body-1" *ngIf="playlist.owner == spotifyService.userId">{{ playlist.public ? 'Public' : 'Private' }}</div>
+    <div class="mat-body-1" *ngIf="playlist.owner == spotifyApiService.userId">{{ playlist.public ? 'Public' : 'Private' }}</div>
     <button mat-raised-button color="primary" class="play-button">PLAY</button>
   </div>
-  <button mat-icon-button [matMenuTriggerFor]="playlistMenu" *ngIf="playlist.owner == spotifyService.userId" class="menu-button"><mat-icon>more_vert</mat-icon></button>
+  <button mat-icon-button [matMenuTriggerFor]="playlistMenu" *ngIf="playlist.owner == spotifyApiService.userId" class="menu-button"><mat-icon>more_vert</mat-icon></button>
 
   <table mat-table [dataSource]="playlist.tracks">
     <ng-container matColumnDef="playButton">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let track; let i = index">
-        <button mat-icon-button class="table-play-arrow" (click)="onPlaySong(i)"><mat-icon>play_arrow</mat-icon></button>
+        <button mat-icon-button class="table-play-arrow" (click)="onTogglePlayButtonClicked(i)">
+          <mat-icon>{{(this.trackIndex === i && playerService.playing) ? 'pause' : 'play_arrow'}}</mat-icon>
+        </button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef> Title </th>
-      <td mat-cell *matCellDef="let track; let i = index" (click)="onPlaySong(i)"> {{track.title}} </td>
+      <td mat-cell *matCellDef="let track; let i = index" (click)="onTrackClicked(i)"> {{track.title}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="trackMenu">
+    <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let track; let i = index">
           <button mat-icon-button class="table-queue-button"><mat-icon>queue</mat-icon></button>

@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { AuthService } from '../shared/auth.service';
-import { Router } from '../../../node_modules/@angular/router';
-import { SpotifyService } from '../shared/spotify.service';
+import { Router } from '@angular/router';
+import { SpotifyApiService } from '../shared/spotify-api.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   private redirectURI: string = 'http://localhost:4200/redirect';
   private scope: string = 'user-read-private playlist-read-private user-modify-playback-state user-read-playback-state user-read-currently-playing';
 
-  constructor(@Inject(DOCUMENT) private document, private authService: AuthService, private router: Router, private spotifyService: SpotifyService) { }
+  constructor(@Inject(DOCUMENT) private document, private authService: AuthService, private router: Router, private spotifyApiService: SpotifyApiService) { }
 
   ngOnInit() {
   }
