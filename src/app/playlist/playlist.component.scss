@@ -63,3 +63,17 @@ img {
 .mat-column-length {
     width: 1%;
 }
+
+.mat-display-2 {
+    margin-bottom: 48px;
+}
+
+.edit-button {
+    float: right;
+    width: 60px;
+    height: 60px;
+
+    .mat-icon {
+        font-size: 32px;
+    }
+}

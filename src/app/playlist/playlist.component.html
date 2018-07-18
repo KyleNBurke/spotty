@@ -1,12 +1,11 @@
 <div *ngIf="playlist">
-  <div>
-    <img *ngIf="playlist.image" src="{{playlist.image}}" width="200px">
-    <div *ngIf="!playlist.image" class="noImage"></div>
-    <h1 class="mat-headline">{{playlist.name}}</h1>
-    <p class="mat-body-1">{{ playlist.tracks.length }} songs</p>
-    <p class="mat-body-1" *ngIf="playlist.owner == spotifyService.userId">{{ playlist.public ? 'public' : 'private' }}</p>
-    <button mat-icon-button (click)="onEdit()" *ngIf="playlist.owner == spotifyService.userId"><mat-icon>edit</mat-icon></button>
-  </div>
+  <img *ngIf="playlist.image" src="{{playlist.image}}" width="200px">
+  <button mat-icon-button (click)="onEdit()" *ngIf="playlist.owner == spotifyService.userId" class="edit-button"><mat-icon>edit</mat-icon></button>
+  <div *ngIf="!playlist.image" class="noImage"></div>
+  <h1 class="mat-display-2">{{playlist.name}}</h1>
+  <p class="mat-body-1">{{ playlist.tracks.length }} songs</p>
+  <p class="mat-body-1" *ngIf="playlist.owner == spotifyService.userId">{{ playlist.public ? 'public' : 'private' }}</p>
+  <button mat-raised-button color="primary">PLAY</button>
 
   <table mat-table [dataSource]="playlist.tracks">
     <ng-container matColumnDef="actions">

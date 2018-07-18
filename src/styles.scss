@@ -34,3 +34,7 @@ body {
     padding-top: 64px;
     background-color: $background;
 }
+
+.mat-button, .mat-raised-button, .mat-stroked-button, .mat-icon-button, .mat-fab, .mat-mini-fab {
+    color: white !important;
+}
