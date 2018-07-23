@@ -1,0 +1,11 @@
+List:
+    display columns (configured via child comp)
+
+    Playlist:
+        display columns: playButton, title, actions, artist, album, date, length
+
+    Album:
+        type: album, single, compilation
+        display columns playButton, title, actions, features, length
+
+Artist:
