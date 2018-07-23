@@ -32,6 +32,7 @@ import { FormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 const routes: Routes = [
   { path: '', redirectTo: 'playlists', pathMatch: 'full' },
@@ -76,7 +77,8 @@ const routes: Routes = [
     FormsModule,
     MatMenuModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatDividerModule
   ],
   providers: [
     {

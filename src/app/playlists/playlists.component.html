@@ -4,6 +4,10 @@
       <mat-list-item role="listitem" *ngFor="let playlist of playlists; let i = index">
         <button mat-button [routerLink]="['../', i]" [class.active]="selectedPlaylist === i">{{playlist.name}}</button>
       </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <button mat-button class="grey-text">New playlist</button>
+      </mat-list-item>
     </mat-list>
   </mat-drawer>
   <mat-drawer-content>
