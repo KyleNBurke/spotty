@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { SpotifyApiService } from './spotify-api.service';
 import { Track } from './track.model';
 import { Playlist } from './playlist.model';

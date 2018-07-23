@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Subject, Observable } from 'rxjs';
-import { Track } from './track.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Subject } from 'rxjs';
 import { Playlist } from './playlist.model';
 
 @Injectable({
