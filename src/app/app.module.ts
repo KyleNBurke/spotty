@@ -33,8 +33,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { ListComponent } from './list/list.component';
-import { PlaylistComponent } from './list/playlist/playlist.component';
-import { AlbumComponent } from './list/album/album.component';
+import { PlaylistComponent } from './playlist/playlist.component';
+import { AlbumComponent } from './album/album.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'playlists', pathMatch: 'full' },
@@ -60,7 +60,7 @@ const routes: Routes = [
     EditComponent,
     ListComponent,
     PlaylistComponent,
-    AlbumComponent
+    AlbumComponent,
   ],
   imports: [
     BrowserModule,

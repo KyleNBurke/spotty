@@ -1,7 +1,13 @@
 List:
+    image
+    title text
+    type text
+    owner text
+    addition info (playlist: public or private, album: nothing?)
     display columns (configured via child comp)
 
     Playlist:
+        public or private
         display columns: playButton, title, actions, artist, album, date, length
 
     Album:
@@ -9,3 +15,19 @@ List:
         display columns playButton, title, actions, features, length
 
 Artist:
+
+
+
+
+ListComponent
+    image: string
+    title: string
+    type: string
+    owner: string
+    public: boolean
+    displayColumns
+    tableData
+
+AlbumComponent
+
+PlaylistComponent
