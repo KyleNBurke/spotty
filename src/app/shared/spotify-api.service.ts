@@ -9,25 +9,17 @@ import { Playlist } from './playlist.model';
   providedIn: 'root'
 })
 export class SpotifyApiService {
-  private accessToken: string;
   private headers: HttpHeaders = new HttpHeaders();
 
   private _userId: string;
   private _userDisplayName: string;
   userDataFetched = new Subject<string>();
 
-  private currentTrack: Track;
-  currentTrackChanged = new Subject<Track>();
-
   private _playlists: Playlist[] = [];
   playlistsFetched = new Subject<Playlist[]>();
 
-  prevTrackPlayed = new Subject<null>();
-  nextTrackPlayed = new Subject<null>();
-
   constructor(private authService: AuthService, private httpClient: HttpClient) {
-    this.accessToken = authService.accessToken;
-    this.headers = this.headers.set('Authorization', 'Bearer ' + this.accessToken);
+    this.headers = this.headers.set('Authorization', 'Bearer ' + authService.accessToken);
 
     this.fetchUserData();
     this.userDataFetched.subscribe(() => {
@@ -166,7 +158,7 @@ export class SpotifyApiService {
     const endpoint = 'https://api.spotify.com/v1/me/player/previous';
 
     this.httpClient.post(endpoint, null, { headers: this.headers }).subscribe((data: Object) => {
-      this.prevTrackPlayed.next();
+      //console.log(data);
     });
   }
 
@@ -174,7 +166,7 @@ export class SpotifyApiService {
     const endpoint = 'https://api.spotify.com/v1/me/player/next';
 
     this.httpClient.post(endpoint, null, { headers: this.headers }).subscribe((data: Object) => {
-      this.nextTrackPlayed.next();
+      //console.log(data);
     });
   }
 }
