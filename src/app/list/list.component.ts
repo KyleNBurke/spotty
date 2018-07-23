@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ListType } from '../shared/listType';
+import { Playlist } from '../shared/playlist.model';
+import { Album } from '../shared/album.modal';
 
 @Component({
   selector: 'app-list',
@@ -6,6 +9,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
+  private ListType = ListType;
+  @Input() type: ListType;
+  @Input() playlist: Playlist;
+  @Input() album: Album;
 
   constructor() { }
 
