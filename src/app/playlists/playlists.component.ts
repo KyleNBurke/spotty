@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SpotifyApiService } from '../shared/spotify-api.service';
 import { Playlist } from '../shared/playlist.model';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-playlists',

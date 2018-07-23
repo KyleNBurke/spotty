@@ -7,13 +7,12 @@ import { PlaylistsComponent } from './playlists/playlists.component';
 import { BrowseComponent } from './browse/browse.component';
 import { SearchComponent } from './search/search.component';
 import { PlayerComponent } from './player/player.component';
-import { TrackComponent } from './track/track.component';
-import { PlaylistComponent } from './playlist/playlist.component';
+import { PlaylistOldComponent } from './playlist-old/playlist-old.component';
 import { SigninComponent } from './signin/signin.component';
 import { RedirectComponent } from './redirect/redirect.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { authInterceptor } from './shared/auth.interceptor';
-import { EditComponent } from './playlist/edit/edit.component';
+import { EditComponent } from './playlist-old/edit/edit.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
@@ -33,6 +32,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
+import { ListComponent } from './list/list.component';
+import { PlaylistComponent } from './list/playlist/playlist.component';
+import { AlbumComponent } from './list/album/album.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'playlists', pathMatch: 'full' },
@@ -53,10 +55,12 @@ const routes: Routes = [
     PlayerComponent,
     RedirectComponent,
     NavbarComponent,
-    TrackComponent,
-    PlaylistComponent,
+    PlaylistOldComponent,
     SigninComponent,
-    EditComponent
+    EditComponent,
+    ListComponent,
+    PlaylistComponent,
+    AlbumComponent
   ],
   imports: [
     BrowserModule,

@@ -7,11 +7,11 @@ import { EditComponent } from './edit/edit.component';
 import { PlayerService } from '../shared/player.service';
 
 @Component({
-  selector: 'app-playlist',
-  templateUrl: './playlist.component.html',
-  styleUrls: ['./playlist.component.scss']
+  selector: 'app-playlist-old',
+  templateUrl: './playlist-old.component.html',
+  styleUrls: ['./playlist-old.component.scss']
 })
-export class PlaylistComponent implements OnInit {
+export class PlaylistOldComponent implements OnInit {
   displayColumns: string[] = ['playButton', 'title', 'actions', 'artist', 'album', 'length'];
   playlist: Playlist;
   playlistIndex: number;
