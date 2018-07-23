@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { SpotifyApiService } from './spotify-api.service';
 import { Track } from './track.model';
+import { Playlist } from './playlist.model';
 
 enum RepeatType {
   none = 0,
@@ -12,7 +13,8 @@ enum RepeatType {
   providedIn: 'root'
 })
 export class PlayerService {
-  currentTrack: Track;
+  context: Playlist;
+  trackIndex: number;
   playing: boolean = false;
   volume: boolean = true;
   shuffle: boolean = false;
@@ -22,10 +24,15 @@ export class PlayerService {
 
   constructor(private spotifyApiService: SpotifyApiService) { }
 
-  playNewSong(track: Track, contextUri: string, offset: number) {
-    this.currentTrack = track;
+  get track(): Track {
+    return this.context ? this.context.tracks[this.trackIndex] : null;
+  }
+
+  playNewSong(context: Playlist, index: number) {
+    this.context = context;
+    this.trackIndex = index;
     this.playing = true;
-    this.spotifyApiService.playNewSong(contextUri, offset);
+    this.spotifyApiService.playNewSong(context.uri, this.trackIndex);
   }
 
   pauseCurrentSong() {
@@ -39,11 +46,15 @@ export class PlayerService {
   }
 
   playPrevSong() {
-    console.log('prev');
+    this.trackIndex--;
+    this.playing = true;
+    this.spotifyApiService.playPrevSong();
   }
 
   playNextSong() {
-    console.log('next');
+    this.trackIndex++;
+    this.playing = true;
+    this.spotifyApiService.playNextSong();
   }
 
   changeRepeat() {

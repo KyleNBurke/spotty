@@ -1,14 +1,14 @@
 <mat-slider min="0" max="100" value="10" color="primary" class="trackSlider"></mat-slider>
 <mat-card>
   <div>
-    <div *ngIf="playerService.currentTrack">
-      <img src='{{playerService.currentTrack.artwork}}' class="trackImage">
+    <div *ngIf="playerService.track">
+      <img src='{{playerService.track.artwork}}' class="trackImage">
       <div class="trackData">
-        <p class="trackTitle">{{playerService.currentTrack.title}}</p>
+        <p class="trackTitle">{{playerService.track.title}}</p>
         <p class="trackArtist">
-          <span *ngFor="let artist of playerService.currentTrack.artist; let i = index">
+          <span *ngFor="let artist of playerService.track.artist; let i = index">
             <span class="artist">{{artist}}</span>
-            <span *ngIf="i !== playerService.currentTrack.artist.length - 1">, </span>
+            <span *ngIf="i !== playerService.track.artist.length - 1">, </span>
           </span>
         </p>
       </div>
@@ -20,9 +20,12 @@
         {{playerService.repeat === playerService.repeatType.repeatTrack ? 'repeat_one' : 'repeat'}}
       </mat-icon>
     </button>
-    <button mat-icon-button (click)="playerService.playPrevSong()"><mat-icon>skip_previous</mat-icon></button>
+    <button mat-icon-button (click)="playerService.playPrevSong()"
+      [disabled]="!playerService.track || playerService.trackIndex === 0"><mat-icon>skip_previous</mat-icon></button>
     <button mat-mini-fab color="primary" (click)="onToggleSong()"><mat-icon>{{playerService.playing ? 'pause' : 'play_arrow'}}</mat-icon></button>
-    <button mat-icon-button (click)="playerService.playNextSong()"><mat-icon>skip_next</mat-icon></button>
+    <button mat-icon-button (click)="playerService.playNextSong()"
+      [disabled]="!playerService.track || playerService.trackIndex === playerService.context.tracks.length - 1"><mat-icon>skip_next</mat-icon>
+    </button>
     <button mat-icon-button (click)="playerService.toggleShuffle()">
       <mat-icon [color]="playerService.shuffle ? 'primary' : 'null'">shuffle</mat-icon>
     </button>

@@ -33,30 +33,20 @@ export class PlaylistComponent implements OnInit {
     this.spotifyApiService.playlistsFetched.subscribe(() => {
       this.playlist = this.spotifyApiService.getPlaylist(this.playlistIndex);
     });
-
-    /*this.spotifyService.prevTrackPlayed.subscribe(() => {
-      this.trackIndex--;
-    });
-
-    this.spotifyService.nextTrackPlayed.subscribe(() => {
-      this.trackIndex++;
-    });*/
   }
 
   onTrackClicked(index: number) {
-    if(index !== this.trackIndex) {
-      this.trackIndex = index;
-      this.playerService.playNewSong(this.playlist.tracks[this.trackIndex], this.playlist.uri, index);
+    if(index !== this.playerService.trackIndex) {
+      this.playerService.playNewSong(this.playlist, index);
     }
   }
 
   onTogglePlayButtonClicked(index: number) {
-    if(index === this.trackIndex) {
+    if(index === this.playerService.trackIndex) {
       this.playerService.playing ? this.playerService.pauseCurrentSong() : this.playerService.playCurrentSong();
     }
     else {
-      this.trackIndex = index;
-      this.playerService.playNewSong(this.playlist.tracks[this.trackIndex], this.playlist.uri, index);
+      this.playerService.playNewSong(this.playlist, this.trackIndex);
     }
   }
 

@@ -8,7 +8,6 @@ import { PlayerService } from '../shared/player.service';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit {
-  track: Track;
 
   constructor(private playerService: PlayerService) { }
 
