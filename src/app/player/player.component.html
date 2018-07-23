@@ -22,7 +22,7 @@
     </button>
     <button mat-icon-button (click)="playerService.playPrevSong()"
       [disabled]="!playerService.track || playerService.trackIndex === 0"><mat-icon>skip_previous</mat-icon></button>
-    <button mat-mini-fab color="primary" (click)="onToggleSong()"><mat-icon>{{playerService.playing ? 'pause' : 'play_arrow'}}</mat-icon></button>
+    <button mat-mini-fab color="primary" (click)="onToggleSong()" [disabled]="!playerService.track"><mat-icon>{{playerService.playing ? 'pause' : 'play_arrow'}}</mat-icon></button>
     <button mat-icon-button (click)="playerService.playNextSong()"
       [disabled]="!playerService.track || playerService.trackIndex === playerService.context.tracks.length - 1"><mat-icon>skip_next</mat-icon>
     </button>

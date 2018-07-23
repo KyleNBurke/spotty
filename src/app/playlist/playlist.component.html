@@ -7,7 +7,7 @@
     <div class="mat-body-1">Playlist</div>
     <div class="mat-body-1">Created by {{playlist.owner}}, {{playlist.tracks.length}} songs</div>
     <div class="mat-body-1" *ngIf="playlist.owner == spotifyApiService.userId">{{ playlist.public ? 'Public' : 'Private' }}</div>
-    <button mat-raised-button color="primary" class="play-button">PLAY</button>
+    <button mat-raised-button color="primary" class="play-button" (click)="onPlayClicked()">PLAY</button>
   </div>
   <button mat-icon-button [matMenuTriggerFor]="playlistMenu" *ngIf="playlist.owner == spotifyApiService.userId" class="menu-button"><mat-icon>more_vert</mat-icon></button>
 

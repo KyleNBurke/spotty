@@ -35,6 +35,10 @@ export class PlaylistComponent implements OnInit {
     });
   }
 
+  onPlayClicked() {
+    this.playerService.playNewSong(this.playlist, 0);
+  }
+
   onTrackClicked(index: number) {
     if(index !== this.playerService.trackIndex) {
       this.playerService.playNewSong(this.playlist, index);
