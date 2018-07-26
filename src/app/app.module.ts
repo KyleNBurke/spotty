@@ -43,7 +43,8 @@ const routes: Routes = [
   { path: 'playlists/:id', component: PlaylistsComponent },
   { path: 'browse', component: BrowseComponent },
   { path: 'search', component: SearchComponent },
-  { path: 'signin', component: SigninComponent }
+  { path: 'signin', component: SigninComponent },
+  { path: 'album/:id', component: AlbumComponent }
 ];
 
 @NgModule({

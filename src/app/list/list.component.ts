@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ListType } from '../shared/listType';
 import { Playlist } from '../shared/playlist.model';
 import { Album } from '../shared/album.modal';
+import { SpotifyApiService } from '../shared/spotify-api.service';
 
 @Component({
   selector: 'app-list',
@@ -14,7 +15,7 @@ export class ListComponent implements OnInit {
   @Input() playlist: Playlist;
   @Input() album: Album;
 
-  constructor() { }
+  constructor(private spotifyApiService: SpotifyApiService) { }
 
   ngOnInit() {
   }
