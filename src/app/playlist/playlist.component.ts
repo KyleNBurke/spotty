@@ -18,6 +18,7 @@ export class PlaylistComponent implements OnInit {
   @Output() selectedPlaylistChanged = new EventEmitter();
 
   constructor(private route: ActivatedRoute, private spotifyApiService: SpotifyApiService) {
+    //move this to ngOnInit
     this.route.params.subscribe(params => {
       this.playlistIndex = +params['id'];
       this.playlist = this.spotifyApiService.getPlaylist(this.playlistIndex);

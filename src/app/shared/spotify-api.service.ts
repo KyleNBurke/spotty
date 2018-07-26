@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { Playlist } from './playlist.model';
+import { Album } from './album.modal';
+import { map } from '../../../node_modules/rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -97,6 +99,26 @@ export class SpotifyApiService {
     const endpoint = 'https://api.spotify.com/v1/users/' + this._userId + '/playlists/' + id + '/tracks';
 
     return this.httpClient.get(endpoint, { headers: this.headers });
+  }
+
+  fetchAlbum(id: string): Observable<Album> {
+    const endpoint = 'https://api.spotify.com/v1/albums/' + id;
+
+    return this.httpClient.get<Album>(endpoint, { headers: this.headers }).pipe(
+      map((data) => {
+        console.log(data);
+
+        var album: Album =  {
+          name: data['name'],
+          tracks: [], //this is similar to getting the tracks in the playlist, no request need to be made but we can turn the track mapping into a function
+          uri: data['uri'],
+          image: "",
+          artist: "",
+          type: data['album_type']
+        }
+
+        return album;
+      }));
   }
 
   getPlaylist(index: number) {
