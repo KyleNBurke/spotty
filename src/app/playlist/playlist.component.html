@@ -1,1 +1,60 @@
-<app-list [type]="ListType.Playlist" [playlist]="playlist"></app-list>
+<div *ngIf="playlist">
+  <div class="left">
+    <img *ngIf="playlist.image" src="{{playlist.image}}" width="200px">
+  </div>
+  <div class="right">
+    <h1 class="mat-display-2">{{playlist.name}}</h1>
+    <div class="mat-body-1">Playlist created by <span class="link">{{playlist.owner}}</span></div>
+    <div class="mat-body-1">{{playlist.tracks.length}} songs</div>
+    <div class="mat-body-1" *ngIf="playlist.owner === spotifyApiService.userId">{{ playlist.public ? 'Public' : 'Private' }}</div>
+    <button mat-raised-button color="primary" class="play-button">PLAY</button>
+  </div>
+  <button mat-icon-button class="menu-button"><mat-icon>more_vert</mat-icon></button>
+
+  <table mat-table [dataSource]="playlist.tracks">
+    <ng-container matColumnDef="playButton">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let track; let i = index">
+        <button mat-icon-button class="table-play-arrow">
+          <mat-icon>play_arrow</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Title</th>
+      <td mat-cell *matCellDef="let track; let i = index">{{track.title}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let track; let i = index">
+        <button mat-icon-button class="table-queue-button"><mat-icon>queue</mat-icon></button>
+        <button mat-icon-button class="table-more-menu"><mat-icon>more_vert</mat-icon></button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="artist">
+      <th mat-header-cell *matHeaderCellDef>Artist</th>
+      <td mat-cell *matCellDef="let track">
+        <span *ngFor="let artist of track.artist; let i = index">
+          <span class="link">{{artist}}</span>
+          <span *ngIf="i !== track.artist.length - 1">, </span>
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="album">
+      <th mat-header-cell *matHeaderCellDef>Album</th>
+      <td mat-cell *matCellDef="let track"><span class="link">{{track.album}}</span></td>
+    </ng-container>
+
+    <ng-container matColumnDef="length">
+      <th mat-header-cell *matHeaderCellDef>Length</th>
+      <td mat-cell *matCellDef="let track"><span>{{track.lengthFormatted}}</span></td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: displayColumns; let i = index" [class.active]="i === 0"></tr>
+  </table>
+</div>

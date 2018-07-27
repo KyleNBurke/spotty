@@ -5,6 +5,6 @@ export interface Album {
     tracks: Track[],
     uri: string,
     image: string,
-    artist: string
+    artist: string[],
     type: string
 }

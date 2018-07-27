@@ -32,19 +32,18 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
-import { ListComponent } from './list/list.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { AlbumComponent } from './album/album.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'playlists', pathMatch: 'full' },
+  { path: '', redirectTo: 'playlist/0', pathMatch: 'full' },
   { path: 'redirect', component: RedirectComponent },
-  { path: 'playlists', redirectTo: 'playlists/0', pathMatch: 'full' },
-  { path: 'playlists/:id', component: PlaylistsComponent },
+  { path: 'playlist', redirectTo: 'playlists/0', pathMatch: 'full' },
+  { path: 'playlist/:id', component: PlaylistComponent },
+  { path: 'album/:id', component: AlbumComponent },
   { path: 'browse', component: BrowseComponent },
   { path: 'search', component: SearchComponent },
   { path: 'signin', component: SigninComponent },
-  { path: 'album/:id', component: AlbumComponent }
 ];
 
 @NgModule({
@@ -59,7 +58,6 @@ const routes: Routes = [
     PlaylistOldComponent,
     SigninComponent,
     EditComponent,
-    ListComponent,
     PlaylistComponent,
     AlbumComponent,
   ],

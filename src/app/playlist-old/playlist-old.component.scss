@@ -20,7 +20,7 @@
 
 .active {
     background-color: $background-dark;
-    color: $primary;
+    color: $primary; //look into why this doesn't work
 
     .table-play-arrow {
         visibility: visible;

@@ -1,0 +1,69 @@
+@import '../../styles.scss';
+
+.left {
+    float: left;
+    margin-right: 20px;
+}
+
+.right {
+    float: left;
+    height: 200px;
+    position: relative;
+
+    .mat-display-2, .mat-body-1 {
+        margin-bottom: 12px;
+    }
+}
+
+.play-button {
+    position: absolute;
+    bottom: 0;
+}
+
+.menu-button {
+    float: right;
+}
+
+.link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.mat-table {
+    width: 100%;
+    margin-bottom: 100px;
+    background: inherit;
+
+    .mat-column-playButton, .mat-column-actions {
+        padding-left: 0 !important;
+        padding-right: 10px !important;
+        width: 1%;
+        white-space: nowrap;
+    }
+
+    .mat-column-length {
+        width: 1%;
+    }
+
+    .table-play-arrow, .table-more-menu, .table-queue-button {
+        visibility: hidden;
+    }
+
+    .mat-row:hover {
+        background-color: $background-dark;
+    
+        .table-play-arrow, .table-more-menu, .table-queue-button {
+            visibility: visible;
+        }
+    }
+
+    .active {
+        background-color: $background-dark;
+        color: $primary;
+    
+        .table-play-arrow {
+            visibility: visible;
+        }
+    }
+}
+

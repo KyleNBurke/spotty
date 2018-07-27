@@ -8,26 +8,18 @@ import { Playlist } from '../shared/playlist.model';
   styleUrls: ['./playlists.component.scss']
 })
 export class PlaylistsComponent implements OnInit {
-  playlists: Playlist[] = [];
-  static _playlistsFetched = false;
-  selectedPlaylist: number;
+  playlists: Playlist[];
+  private selectedPlaylist: number;
 
   constructor(private spotifyApiService: SpotifyApiService) { }
 
   ngOnInit() {
-    this.playlists = this.spotifyApiService.playlists;
-
     this.spotifyApiService.playlistsFetched.subscribe((playlists: Playlist[]) => {
       this.playlists = playlists;
-      PlaylistsComponent._playlistsFetched = true;
     });
   }
 
-  get playlistsFetched() {
-    return PlaylistsComponent._playlistsFetched;
-  }
-
-  onSelectedPlaylistChanged(index: number) {
+  onPlaylistClick(index: number) {
     this.selectedPlaylist = index;
   }
 }

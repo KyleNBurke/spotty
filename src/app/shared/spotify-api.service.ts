@@ -108,12 +108,18 @@ export class SpotifyApiService {
       map((data) => {
         console.log(data);
 
+        let artists: string[] = [];
+        for(let k in data['artists']) {
+          const name = data['artists'][k]['name'];
+          artists.push(name);
+        }
+
         var album: Album =  {
           name: data['name'],
           tracks: [], //this is similar to getting the tracks in the playlist, no request need to be made but we can turn the track mapping into a function
           uri: data['uri'],
-          image: "",
-          artist: "",
+          image: Object.keys(data['images']).length === 0 ? null : data['images'][0]['url'],
+          artist: artists,
           type: data['album_type']
         }
 

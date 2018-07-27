@@ -1,1 +1,17 @@
-<!-- <app-list [type]="ListType.Album" [album]="album"></app-list> -->
+<div *ngIf="album">
+  <div class="left">
+    <img *ngIf="album.image" src="{{album.image}}" width="200px">
+  </div>
+  <div class="right">
+    <h1 class="mat-display-2">{{album.name}}</h1>
+    <div class="mat-body-1">{{album.type | titlecase}} by
+      <span *ngFor="let artist of album.artist; let i = index">
+        <span class="link">{{artist}}</span>
+        <span *ngIf="i !== album.artist.length - 1">, </span>
+      </span>
+    </div>
+    <div class="mat-body-1">{{album.tracks.length}} songs</div>
+    <button mat-raised-button color="primary" class="play-button" (click)="onPlayClicked()">PLAY</button>
+  </div>
+  <button mat-icon-button class="menu-button"><mat-icon>more_vert</mat-icon></button>
+</div>
