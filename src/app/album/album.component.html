@@ -14,4 +14,42 @@
     <button mat-raised-button color="primary" class="play-button" (click)="onPlayClicked()">PLAY</button>
   </div>
   <button mat-icon-button class="menu-button"><mat-icon>more_vert</mat-icon></button>
+
+  <table mat-table [dataSource]="album.tracks">
+    <ng-container matColumnDef="playButton">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let track; let i = index">
+        <button mat-icon-button class="table-play-arrow">
+          <mat-icon>play_arrow</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Title</th>
+      <td mat-cell *matCellDef="let track; let i = index">{{track.title}}
+        <span *ngFor="let artist of track.artist | slice:1; let i = index" class="grey-text">
+          <span *ngIf="i === 0"> - </span>
+          <span class="link">{{artist}}</span>
+          <span *ngIf="i !== track.artist.length - 2">, </span>
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let track; let i = index">
+        <button mat-icon-button class="table-queue-button"><mat-icon>queue</mat-icon></button>
+        <button mat-icon-button class="table-more-menu"><mat-icon>more_vert</mat-icon></button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="length">
+      <th mat-header-cell *matHeaderCellDef>Length</th>
+      <td mat-cell *matCellDef="let track"><span>{{track.lengthFormatted}}</span></td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: displayColumns; let i = index" [class.active]="i === 0"></tr>
+  </table>
 </div>

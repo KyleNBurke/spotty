@@ -5,6 +5,7 @@ import { Subject, Observable } from 'rxjs';
 import { Playlist } from './playlist.model';
 import { Album } from './album.modal';
 import { map } from '../../../node_modules/rxjs/operators';
+import { Track } from './track.model';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +49,7 @@ export class SpotifyApiService {
         this.fetchTracks(id).subscribe((data: Object) => {
           for(let j in data['items']) {
             const trackData = data['items'][j]['track'];
-            let artists: string[] = [];
+            /*let artists: string[] = [];
       
             for(let k in trackData['artists']) {
               const name = trackData['artists'][k]['name'];
@@ -70,9 +71,9 @@ export class SpotifyApiService {
               'artwork': Object.keys(trackData['album']['images']).length !== 0 ? trackData['album']['images'][2]['url'] : null,
               'length': +trackData['duration_ms'],
               'lengthFormatted': mins + ":" + (secs.toString().length < 2 ? '0' + secs : secs)
-            };
+            };*/
             
-            tracks.push(track);
+            tracks.push(this.parseTrack(trackData, true));
           }
 
           const playlistToAdd: Playlist = {
@@ -114,9 +115,16 @@ export class SpotifyApiService {
           artists.push(name);
         }
 
+        console.log(data);
+        let tracks = [];
+        for(let j in data['tracks']['items']) {
+          const trackData = data['tracks']['items'][j];
+          tracks.push(this.parseTrack(trackData, false));
+        }
+
         var album: Album =  {
           name: data['name'],
-          tracks: [], //this is similar to getting the tracks in the playlist, no request need to be made but we can turn the track mapping into a function
+          tracks: tracks, //this is similar to getting the tracks in the playlist, no request need to be made but we can turn the track mapping into a function
           uri: data['uri'],
           image: Object.keys(data['images']).length === 0 ? null : data['images'][0]['url'],
           artist: artists,
@@ -125,6 +133,34 @@ export class SpotifyApiService {
 
         return album;
       }));
+  }
+
+  private parseTrack(data: Object, playlist: boolean): Track {
+    let artists: string[] = [];
+      
+    for(let k in data['artists']) {
+      const name = data['artists'][k]['name'];
+      artists.push(name);
+    }
+
+    let s = data['duration_ms'];
+    let ms = s % 1000;
+    s = (s - ms) / 1000;
+    let secs = s % 60;
+    s = (s - secs) / 60;
+    let mins = s % 60;
+
+    const track = {
+      'title': data['name'],
+      'artist': artists,
+      'album': playlist ? data['album']['name'] : null,
+      'uri': data['uri'],
+      'artwork': playlist ? (Object.keys(data['album']['images']).length !== 0 ? data['album']['images'][2]['url'] : null) : null,
+      'length': +data['duration_ms'],
+      'lengthFormatted': mins + ":" + (secs.toString().length < 2 ? '0' + secs : secs)
+    };
+
+    return track;
   }
 
   getPlaylist(index: number) {
