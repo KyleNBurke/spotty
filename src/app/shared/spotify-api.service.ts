@@ -107,8 +107,6 @@ export class SpotifyApiService {
 
     return this.httpClient.get<Album>(endpoint, { headers: this.headers }).pipe(
       map((data) => {
-        console.log(data);
-
         let artists: string[] = [];
         for(let k in data['artists']) {
           const name = data['artists'][k]['name'];
@@ -124,7 +122,7 @@ export class SpotifyApiService {
 
         var album: Album =  {
           name: data['name'],
-          tracks: tracks, //this is similar to getting the tracks in the playlist, no request need to be made but we can turn the track mapping into a function
+          tracks: tracks,
           uri: data['uri'],
           image: Object.keys(data['images']).length === 0 ? null : data['images'][0]['url'],
           artist: artists,
@@ -153,7 +151,8 @@ export class SpotifyApiService {
     const track = {
       'title': data['name'],
       'artist': artists,
-      'album': playlist ? data['album']['name'] : null,
+      'albumTitle': playlist ? data['album']['name'] : null,
+      'albumID': playlist ? data['album']['id'] : null,
       'uri': data['uri'],
       'artwork': playlist ? (Object.keys(data['album']['images']).length !== 0 ? data['album']['images'][2]['url'] : null) : null,
       'length': +data['duration_ms'],

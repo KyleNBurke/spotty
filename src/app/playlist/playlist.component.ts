@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Playlist } from '../shared/playlist.model';
-import { ActivatedRoute } from '../../../node_modules/@angular/router';
+import { ActivatedRoute, Router } from '../../../node_modules/@angular/router';
 import { SpotifyApiService } from '../shared/spotify-api.service';
 import { PlayerService } from '../shared/player.service';
 
@@ -13,12 +13,21 @@ export class PlaylistComponent implements OnInit {
   private playlist: Playlist;
   private displayColumns: string[] = ['playButton', 'title', 'actions', 'artist', 'album', 'length'];
 
-  constructor(private route: ActivatedRoute, private spotifyApiService: SpotifyApiService, private playerService: PlayerService) { }
+  constructor(private route: ActivatedRoute,
+    private spotifyApiService: SpotifyApiService,
+    private playerService: PlayerService,
+    private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.playlist = this.spotifyApiService.getPlaylist(+params['id']);
     });
+  }
+
+  onAlbumClick(index: number) {
+    //const uri = "/album/" + this.playlist.tracks[index].albumID;
+
+    this.router.navigate(['/album', this.playlist.tracks[index].albumID]);
   }
 
 }

@@ -1,7 +1,8 @@
 export interface Track {
     title: string,
     artist: string[],
-    album: string,
+    albumTitle: string,
+    albumID: string,
     uri: string,
     artwork: string,
     length: number,
