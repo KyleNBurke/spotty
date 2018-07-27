@@ -59,7 +59,10 @@
 
     .active {
         background-color: $background-dark;
-        color: $primary;
+
+        .mat-cell {
+            color: $primary;
+        }
     
         .table-play-arrow {
             visibility: visible;
