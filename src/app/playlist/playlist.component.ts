@@ -11,6 +11,7 @@ import { PlayerService } from '../shared/player.service';
 })
 export class PlaylistComponent implements OnInit {
   private playlist: Playlist;
+  private playlistIndex: number;
   private displayColumns: string[] = ['playButton', 'title', 'actions', 'artist', 'album', 'length'];
 
   constructor(private route: ActivatedRoute,
@@ -20,7 +21,12 @@ export class PlaylistComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.playlist = this.spotifyApiService.getPlaylist(+params['id']);
+      this.playlistIndex = +params['id'];
+      this.playlist = this.spotifyApiService.getPlaylist(this.playlistIndex);
+    });
+
+    this.spotifyApiService.playlistsFetched.subscribe(() => {
+      this.playlist = this.spotifyApiService.getPlaylist(this.playlistIndex);
     });
   }
 
