@@ -1,5 +1,5 @@
-<mat-drawer-container *ngIf="playlists">
-  <mat-drawer mode="side" opened>
+<mat-drawer-container>
+  <mat-drawer mode="side" opened *ngIf="playlists">
     <mat-list role="list">
       <mat-list-item role="listitem" *ngFor="let playlist of playlists; let i = index">
         <button mat-button [routerLink]="['/playlist', i]" [class.active]="selectedPlaylist === i" (click)="onPlaylistClick(i)">{{playlist.name}}</button>

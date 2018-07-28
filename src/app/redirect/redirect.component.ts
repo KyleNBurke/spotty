@@ -12,7 +12,7 @@ export class RedirectComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.router.navigate(['/playlists']);
+    this.router.navigate(['/']);
   }
 
 }
