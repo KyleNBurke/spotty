@@ -49,30 +49,6 @@ export class SpotifyApiService {
         this.fetchTracks(id).subscribe((data: Object) => {
           for(let j in data['items']) {
             const trackData = data['items'][j]['track'];
-            /*let artists: string[] = [];
-      
-            for(let k in trackData['artists']) {
-              const name = trackData['artists'][k]['name'];
-              artists.push(name);
-            }
-
-            let s = trackData['duration_ms'];
-            let ms = s % 1000;
-            s = (s - ms) / 1000;
-            let secs = s % 60;
-            s = (s - secs) / 60;
-            let mins = s % 60;
-      
-            const track = {
-              'title': trackData['name'],
-              'artist': artists,
-              'album': trackData['album']['name'],
-              'uri': trackData['uri'],
-              'artwork': Object.keys(trackData['album']['images']).length !== 0 ? trackData['album']['images'][2]['url'] : null,
-              'length': +trackData['duration_ms'],
-              'lengthFormatted': mins + ":" + (secs.toString().length < 2 ? '0' + secs : secs)
-            };*/
-            
             tracks.push(this.parseTrack(trackData, true));
           }
 
@@ -113,7 +89,6 @@ export class SpotifyApiService {
           artists.push(name);
         }
 
-        console.log(data);
         let tracks = [];
         for(let j in data['tracks']['items']) {
           const trackData = data['tracks']['items'][j];
@@ -154,7 +129,7 @@ export class SpotifyApiService {
       'albumTitle': playlist ? data['album']['name'] : null,
       'albumID': playlist ? data['album']['id'] : null,
       'uri': data['uri'],
-      'artwork': playlist ? (Object.keys(data['album']['images']).length !== 0 ? data['album']['images'][2]['url'] : null) : null,
+      'image': playlist ? (Object.keys(data['album']['images']).length !== 0 ? data['album']['images'][2]['url'] : null) : null,
       'length': +data['duration_ms'],
       'lengthFormatted': mins + ":" + (secs.toString().length < 2 ? '0' + secs : secs)
     };

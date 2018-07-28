@@ -4,7 +4,7 @@ export interface Track {
     albumTitle: string,
     albumID: string,
     uri: string,
-    artwork: string,
+    image: string,
     length: number,
     lengthFormatted: string
 }

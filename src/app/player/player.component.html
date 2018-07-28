@@ -2,7 +2,7 @@
 <mat-card>
   <div>
     <div *ngIf="playerService.track">
-      <img src='{{playerService.track.artwork}}' class="trackImage">
+      <img src='{{playerService.currentTrackImage}}' class="trackImage" width="64px">
       <div class="trackData">
         <p class="trackTitle">{{playerService.track.title}}</p>
         <p class="trackArtist">

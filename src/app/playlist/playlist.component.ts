@@ -30,9 +30,11 @@ export class PlaylistComponent implements OnInit {
     });
   }
 
-  onAlbumClick(index: number) {
-    //const uri = "/album/" + this.playlist.tracks[index].albumID;
+  onTogglePlayButtonClicked(index: number) {
+    this.playerService.playNewSong(this.playlist, index);
+  }
 
+  onAlbumClick(index: number) {
     this.router.navigate(['/album', this.playlist.tracks[index].albumID]);
   }
 

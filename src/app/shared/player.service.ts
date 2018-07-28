@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { SpotifyApiService } from './spotify-api.service';
 import { Track } from './track.model';
 import { Playlist } from './playlist.model';
+import { Album } from './album.modal';
 
 enum RepeatType {
   none = 0,
@@ -13,7 +14,7 @@ enum RepeatType {
   providedIn: 'root'
 })
 export class PlayerService {
-  context: Playlist;
+  context: Playlist | Album;
   trackIndex: number;
   playing: boolean = false;
   volume: boolean = true;
@@ -28,7 +29,11 @@ export class PlayerService {
     return this.context ? this.context.tracks[this.trackIndex] : null;
   }
 
-  playNewSong(context: Playlist, index: number) {
+  private get currentTrackImage() : string {
+    return this.track.image ? this.track.image : this.context.image;
+  }
+
+  playNewSong(context: Playlist | Album, index: number) {
     this.context = context;
     this.trackIndex = index;
     this.playing = true;
