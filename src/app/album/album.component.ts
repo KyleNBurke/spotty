@@ -11,7 +11,7 @@ import { PlayerService } from '../shared/player.service';
 })
 export class AlbumComponent implements OnInit {
   private album: Album;
-  private displayColumns: string[] = ['playButton', 'title', 'actions', 'length'];
+  private displayColumns: string[] = ['playButton', 'number', 'title', 'actions', 'length'];
 
   constructor(private route: ActivatedRoute, private spotifyApiService: SpotifyApiService, private playerService: PlayerService) { }
 

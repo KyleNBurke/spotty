@@ -25,6 +25,11 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="number">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let i = index"><span class="grey-text">{{i}}</span></td>
+    </ng-container>
+
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef>Title</th>
       <td mat-cell *matCellDef="let track; let i = index" (click)="onTogglePlayButtonClicked(i)">{{track.title}}
