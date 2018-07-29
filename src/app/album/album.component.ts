@@ -23,8 +23,17 @@ export class AlbumComponent implements OnInit {
     });
   }
 
+  isTrackActive(index: number) {
+    return this.playerService.context && this.playerService.context.uri === this.album.uri && this.playerService.trackIndex === index;
+  }
+
   onTogglePlayButtonClicked(index: number) {
-    this.playerService.playNewSong(this.album, index);
+    if(this.isTrackActive(index)) {
+      this.playerService.playing ? this.playerService.pauseCurrentSong() : this.playerService.playCurrentSong();
+    }
+    else {
+      this.playerService.playNewSong(this.album, index);
+    }
   }
 
 }
