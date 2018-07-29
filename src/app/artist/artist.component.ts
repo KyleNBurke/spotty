@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SpotifyApiService } from '../shared/spotify-api.service';
 import { MatTable } from '@angular/material/table';
 import { PlayerService } from '../shared/player.service';
+import { Track } from '../shared/track.model';
 
 @Component({
   selector: 'app-artist',
@@ -25,6 +26,15 @@ export class ArtistComponent implements OnInit {
     });
 
     this.spotifyApiService.artistPopularTrackFetched.subscribe(() => {
+      for(let track of this.artist.tracks) {
+        for(let i in track.artistName) {
+          if(track.artistName[i] === this.artist.name) {
+            track.artistName.splice(+i, 1);
+            track.artistID.splice(+i, 1);
+          }
+        }
+      }
+
       this.table.renderRows();
     });
   }
