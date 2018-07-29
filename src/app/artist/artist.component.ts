@@ -21,7 +21,6 @@ export class ArtistComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.spotifyApiService.fetchArtist(params['id']).subscribe((artist: Artist) => {
         this.artist = artist;
-        console.log(this.artist);
       })
     });
 
