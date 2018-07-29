@@ -7,12 +7,10 @@ import { PlaylistsComponent } from './playlists/playlists.component';
 import { BrowseComponent } from './browse/browse.component';
 import { SearchComponent } from './search/search.component';
 import { PlayerComponent } from './player/player.component';
-import { PlaylistOldComponent } from './playlist-old/playlist-old.component';
 import { SigninComponent } from './signin/signin.component';
 import { RedirectComponent } from './redirect/redirect.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { authInterceptor } from './shared/auth.interceptor';
-import { EditComponent } from './playlist-old/edit/edit.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
@@ -34,6 +32,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { AlbumComponent } from './album/album.component';
+import { ArtistComponent } from './artist/artist.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'playlist/0', pathMatch: 'full' },
@@ -41,6 +40,7 @@ const routes: Routes = [
   { path: 'playlist', redirectTo: 'playlists/0', pathMatch: 'full' },
   { path: 'playlist/:id', component: PlaylistComponent },
   { path: 'album/:id', component: AlbumComponent },
+  { path: 'artist/:id', component: ArtistComponent },
   { path: 'browse', component: BrowseComponent },
   { path: 'search', component: SearchComponent },
   { path: 'signin', component: SigninComponent },
@@ -55,11 +55,10 @@ const routes: Routes = [
     PlayerComponent,
     RedirectComponent,
     NavbarComponent,
-    PlaylistOldComponent,
     SigninComponent,
-    EditComponent,
     PlaylistComponent,
     AlbumComponent,
+    ArtistComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,7 +91,6 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    EditComponent
   ]
 })
 export class AppModule { }

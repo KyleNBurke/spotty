@@ -43,6 +43,10 @@ export class PlaylistComponent implements OnInit {
     }
   }
 
+  onArtistClick(trackIndex: number, artistIndex: number) {
+    this.router.navigate(['/artist', this.playlist.tracks[trackIndex].artistID[artistIndex]]);
+  }
+
   onAlbumClick(index: number) {
     this.router.navigate(['/album', this.playlist.tracks[index].albumID]);
   }

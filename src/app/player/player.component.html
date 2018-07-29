@@ -6,9 +6,9 @@
       <div class="trackData">
         <p class="trackTitle">{{playerService.track.title}}</p>
         <p class="trackArtist">
-          <span *ngFor="let artist of playerService.track.artist; let i = index">
+          <span *ngFor="let artist of playerService.track.artistName; let i = index">
             <span class="artist">{{artist}}</span>
-            <span *ngIf="i !== playerService.track.artist.length - 1">, </span>
+            <span *ngIf="i !== playerService.track.artistName.length - 1">, </span>
           </span>
         </p>
       </div>
