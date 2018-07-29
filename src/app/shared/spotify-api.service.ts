@@ -3,12 +3,12 @@ import { AuthService } from './auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 import { Playlist } from './playlist.model';
-import { Album } from './album.modal';
-import { map } from '../../../node_modules/rxjs/operators';
+import { Album } from './album.model';
+import { map } from 'rxjs/operators';
 import { Track } from './track.model';
 import { Artist } from './artist.model';
 
-enum Context {
+export enum Context {
   Playlist,
   Album,
   Artist
@@ -62,6 +62,7 @@ export class SpotifyApiService {
           }
 
           const playlistToAdd: Playlist = {
+            context: Context.Playlist,
             name: name,
             tracks: tracks,
             id: id,
@@ -105,6 +106,7 @@ export class SpotifyApiService {
         }
 
         let album: Album =  {
+          context: Context.Album,
           name: data['name'],
           tracks: tracks,
           uri: data['uri'],
@@ -135,9 +137,11 @@ export class SpotifyApiService {
         });
 
         let artist: Artist =  {
+          context: Context.Artist,
           name: data['name'],
           image: Object.keys(data['images']).length === 0 ? null : data['images'][0]['url'],
-          popularTracks: tracks
+          tracks: tracks,
+          uri: data['uri']
         }
 
         return artist;
@@ -208,6 +212,18 @@ export class SpotifyApiService {
     const endpoint = 'https://api.spotify.com/v1/me/player/play';
     const bodyParams = {
       context_uri: contextUri,
+      offset: { 'position': offset }
+    }
+
+    this.httpClient.put(endpoint, bodyParams, { headers: this.headers }).subscribe((data: Object) => {
+      //console.log(data);
+    });
+  }
+
+  playNewSongWithUris(uris: string[], offset: number) {
+    const endpoint = 'https://api.spotify.com/v1/me/player/play';
+    const bodyParams = {
+      uris: uris,
       offset: { 'position': offset }
     }
 

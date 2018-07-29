@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Album } from '../shared/album.modal';
-import { ActivatedRoute } from '../../../node_modules/@angular/router';
+import { Album } from '../shared/album.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SpotifyApiService } from '../shared/spotify-api.service';
 import { PlayerService } from '../shared/player.service';
 
@@ -13,7 +13,7 @@ export class AlbumComponent implements OnInit {
   private album: Album;
   private displayColumns: string[] = ['playButton', 'number', 'title', 'actions', 'length'];
 
-  constructor(private route: ActivatedRoute, private spotifyApiService: SpotifyApiService, private playerService: PlayerService) { }
+  constructor(private route: ActivatedRoute, private spotifyApiService: SpotifyApiService, private playerService: PlayerService, private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -34,6 +34,11 @@ export class AlbumComponent implements OnInit {
     else {
       this.playerService.playNewSong(this.album, index);
     }
+  }
+
+  onArtistClick(trackIndex: number, artistIndex: number, event) {
+    event.stopPropagation();
+    this.router.navigate(['/artist', this.album.tracks[trackIndex].artistID[artistIndex]]);
   }
 
 }

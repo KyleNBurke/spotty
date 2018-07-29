@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Artist } from '../shared/artist.model';
-import { ActivatedRoute } from '../../../node_modules/@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SpotifyApiService } from '../shared/spotify-api.service';
-import { MatTable } from '../../../node_modules/@angular/material/table';
+import { MatTable } from '@angular/material/table';
+import { PlayerService } from '../shared/player.service';
 
 @Component({
   selector: 'app-artist',
@@ -14,7 +15,7 @@ export class ArtistComponent implements OnInit {
   private displayColumns: string[] = ['playButton', 'number', 'title', 'actions', 'album', 'length'];
   @ViewChild(MatTable) table: MatTable<null>; 
 
-  constructor(private route: ActivatedRoute, private spotifyApiService: SpotifyApiService) { }
+  constructor(private route: ActivatedRoute, private spotifyApiService: SpotifyApiService, private router: Router, private playerService: PlayerService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -25,13 +26,30 @@ export class ArtistComponent implements OnInit {
     });
 
     this.spotifyApiService.artistPopularTrackFetched.subscribe(() => {
-      console.log('refresh table');
       this.table.renderRows();
     });
   }
 
-  private isTrackActive(): boolean {
-    return false;
+  private isTrackActive(index: number): boolean {
+    return this.playerService.context && this.playerService.context.uri === this.artist.uri && this.playerService.trackIndex === index;
+  }
+
+  onTogglePlayButtonClicked(index: number) {
+    if(this.isTrackActive(index)) {
+      this.playerService.playing ? this.playerService.pauseCurrentSong() : this.playerService.playCurrentSong();
+    }
+    else {
+      this.playerService.playNewSong(this.artist, index);
+    }
+  }
+
+  onArtistClick(trackIndex: number, artistIndex: number, event) {
+    event.stopPropagation();
+    this.router.navigate(['/artist', this.artist.tracks[trackIndex].artistID[artistIndex]]);
+  }
+
+  onAlbumClick(index: number) {
+    this.router.navigate(['/album', this.artist.tracks[index].albumID]);
   }
 
 }

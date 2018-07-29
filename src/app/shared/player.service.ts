@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { SpotifyApiService } from './spotify-api.service';
+import { SpotifyApiService, Context } from './spotify-api.service';
 import { Track } from './track.model';
 import { Playlist } from './playlist.model';
-import { Album } from './album.modal';
+import { Album } from './album.model';
+import { Artist } from './artist.model';
 
 enum RepeatType {
   none = 0,
@@ -14,7 +15,7 @@ enum RepeatType {
   providedIn: 'root'
 })
 export class PlayerService {
-  context: Playlist | Album;
+  context: Playlist | Album | Artist;
   trackIndex: number;
   playing: boolean = false;
   volume: boolean = true;
@@ -33,11 +34,22 @@ export class PlayerService {
     return this.track.image ? this.track.image : this.context.image;
   }
 
-  playNewSong(context: Playlist | Album, index: number) {
-    this.context = context;
+  playNewSong(list: Playlist | Album | Artist, index: number) {
+    this.context = list;
     this.trackIndex = index;
     this.playing = true;
-    this.spotifyApiService.playNewSong(context.uri, this.trackIndex);
+
+    if(list.context === Context.Artist) {
+      let uris = [];
+      for(let track of list.tracks) {
+        uris.push(track.uri);
+      }
+
+      this.spotifyApiService.playNewSongWithUris(uris, index);
+    }
+    else {
+      this.spotifyApiService.playNewSong(list.uri, this.trackIndex);
+    }
   }
 
   pauseCurrentSong() {

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Playlist } from '../shared/playlist.model';
-import { ActivatedRoute, Router } from '../../../node_modules/@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SpotifyApiService } from '../shared/spotify-api.service';
 import { PlayerService } from '../shared/player.service';
 
