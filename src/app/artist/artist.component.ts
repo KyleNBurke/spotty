@@ -13,7 +13,7 @@ import { Track } from '../shared/track.model';
 })
 export class ArtistComponent implements OnInit {
   private artist: Artist;
-  private displayColumns: string[] = ['playButton', 'number', 'title', 'actions', 'album', 'length'];
+  private displayColumns: string[] = ['playButton', 'number', 'title', 'actions', 'explicit', 'album', 'length'];
   @ViewChild(MatTable) table: MatTable<null>; 
 
   constructor(private route: ActivatedRoute, private spotifyApiService: SpotifyApiService, private router: Router, private playerService: PlayerService) { }

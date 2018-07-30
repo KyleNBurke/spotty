@@ -12,7 +12,7 @@ import { PlayerService } from '../shared/player.service';
 export class PlaylistComponent implements OnInit {
   private playlist: Playlist;
   private playlistIndex: number;
-  private displayColumns: string[] = ['playButton', 'title', 'actions', 'artist', 'album', 'length'];
+  private displayColumns: string[] = ['playButton', 'title', 'actions', 'explicit', 'artist', 'album', 'length'];
 
   constructor(private route: ActivatedRoute,
     private spotifyApiService: SpotifyApiService,

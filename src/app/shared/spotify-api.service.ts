@@ -198,7 +198,8 @@ export class SpotifyApiService {
       'uri': data['uri'],
       'image': context === Context.Album ? null : (Object.keys(data['album']['images']).length !== 0 ? data['album']['images'][2]['url'] : null),
       'length': +data['duration_ms'],
-      'lengthFormatted': mins + ":" + (secs.toString().length < 2 ? '0' + secs : secs)
+      'lengthFormatted': mins + ":" + (secs.toString().length < 2 ? '0' + secs : secs),
+      'explicit': data['explicit']
     };
 
     return track;

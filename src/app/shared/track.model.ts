@@ -7,5 +7,6 @@ export interface Track {
     uri: string,
     image: string,
     length: number,
-    lengthFormatted: string
+    lengthFormatted: string,
+    explicit: boolean
 }

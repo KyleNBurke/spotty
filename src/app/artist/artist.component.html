@@ -44,6 +44,11 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="explicit">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let track"><mat-icon *ngIf="track.explicit">explicit</mat-icon></td>
+    </ng-container>
+
     <ng-container matColumnDef="album">
       <th mat-header-cell *matHeaderCellDef>Album</th>
       <td mat-cell *matCellDef="let track; let i = index"><span class="link" (click)="onTableAlbumClick(i)">{{track.albumName}}</span></td>
