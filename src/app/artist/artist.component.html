@@ -58,4 +58,11 @@
     <tr mat-row *matRowDef="let myRowData; columns: displayColumns; let i = index"
       [class.active]="isTrackActive(i)"></tr>
   </table>
+
+  <h2 class="mat-title">Albums</h2>
+  <div class="albums">
+    <mat-card *ngFor="let albumName of artist.albumName; let i = index">{{albumName}}</mat-card>
+  </div>
+
+  <div class="end"></div>
 </div>

@@ -11,6 +11,9 @@ import { SigninComponent } from './signin/signin.component';
 import { RedirectComponent } from './redirect/redirect.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { authInterceptor } from './shared/auth.interceptor';
+import { PlaylistComponent } from './playlist/playlist.component';
+import { AlbumComponent } from './album/album.component';
+import { ArtistComponent } from './artist/artist.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
@@ -30,9 +33,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
-import { PlaylistComponent } from './playlist/playlist.component';
-import { AlbumComponent } from './album/album.component';
-import { ArtistComponent } from './artist/artist.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'playlist/0', pathMatch: 'full' },

@@ -129,10 +129,10 @@ export class SpotifyApiService {
     return this.httpClient.get<Artist>(endpoint, { headers: this.headers }).pipe(
       map((data) => {
         const endpoint2 = 'https://api.spotify.com/v1/artists/' + id + '/top-tracks';
-        const params = { 'country': 'US' };
+        const params2 = { 'country': 'US' };
         let tracks = [];
 
-        this.httpClient.get(endpoint2, { headers: this.headers, params: params }).subscribe((data: Object) => {
+        this.httpClient.get(endpoint2, { headers: this.headers, params: params2 }).subscribe((data: Object) => {
           for(let i in data['tracks']) {
             tracks.push(this.parseTrack(data['tracks'][i], Context.Artist));
           }
@@ -140,12 +140,23 @@ export class SpotifyApiService {
           this.artistPopularTrackFetched.next();
         });
 
+        const endpoint3 = 'https://api.spotify.com/v1/artists/' + id + '/albums';
+        const params3 = { 'include_groups': 'album'};
+        let albumsName = [];
+
+        this.httpClient.get(endpoint3, { headers: this.headers, params: params3 }).subscribe((data: Object) => {
+          for(let i in data['items']) {
+            albumsName.push(data['items'][i]['name']);
+          }
+        });
+
         let artist: Artist =  {
           context: Context.Artist,
           name: data['name'],
           image: Object.keys(data['images']).length === 0 ? null : data['images'][0]['url'],
           tracks: tracks,
-          uri: data['uri']
+          uri: data['uri'],
+          albumName: albumsName
         }
 
         return artist;

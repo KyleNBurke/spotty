@@ -35,6 +35,7 @@ export class ArtistComponent implements OnInit {
         }
       }
 
+      console.log(this.artist);
       this.table.renderRows();
     });
   }

@@ -10,3 +10,22 @@
     padding-top: 20px;
     margin-bottom: 0px;
 }
+
+.mat-table {
+    margin-bottom: 20px;
+}
+
+.end {
+    margin-bottom: 100px;
+}
+
+.albums {
+    display: inline-flex;
+    flex-wrap: wrap;
+
+    .mat-card {
+        width: 200px;
+        margin-right: 20px;
+    }
+}
+
