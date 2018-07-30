@@ -4,13 +4,13 @@
   </div>
   <div class="right">
     <h1 class="mat-display-2">{{album.name}}</h1>
-    <div class="mat-body-1">{{album.type | titlecase}} by
-      <span *ngFor="let artist of album.artist; let i = index">
-        <span class="link">{{artist}}</span>
-        <span *ngIf="i !== album.artist.length - 1">, </span>
+    <div class="mat-body-1 grey-text">{{album.type | titlecase}} by
+      <span *ngFor="let artist of album.artistName; let i = index">
+        <span class="link" (click)="onAlbumArtistClick(i)">{{artist}}</span>
+        <span *ngIf="i !== album.artistName.length - 1">, </span>
       </span>
     </div>
-    <div class="mat-body-1">{{album.tracks.length}} songs</div>
+    <div class="mat-body-1 grey-text">{{album.tracks.length}} {{album.type === 'single' ? 'song' : 'songs'}}</div>
     <button mat-raised-button color="primary" class="play-button" (click)="onPlayClicked()">PLAY</button>
   </div>
   <button mat-icon-button class="menu-button"><mat-icon>more_vert</mat-icon></button>

@@ -2,12 +2,12 @@
 <mat-card>
   <div>
     <div *ngIf="playerService.track">
-      <img src='{{playerService.currentTrackImage}}' class="trackImage" width="64px">
+      <img src='{{playerService.currentTrackImage}}' class="trackImage" width="64px" (click)="onAlbumClick()">
       <div class="trackData">
         <p class="trackTitle">{{playerService.track.title}}</p>
-        <p class="trackArtist">
+        <p class="trackArtist grey-text">
           <span *ngFor="let artist of playerService.track.artistName; let i = index">
-            <span class="artist">{{artist}}</span>
+            <span class="artist" (click)="onArtistClick(i)">{{artist}}</span>
             <span *ngIf="i !== playerService.track.artistName.length - 1">, </span>
           </span>
         </p>
