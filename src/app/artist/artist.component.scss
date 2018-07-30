@@ -22,10 +22,18 @@
 .albums {
     display: inline-flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
 
     .mat-card {
         width: 200px;
         margin-right: 20px;
+        margin-bottom: 20px;
+
+        &:hover {
+            @include mat-elevation(10);
+            background-color: $background;
+            cursor: pointer;
+        }
     }
 }
 

@@ -27,7 +27,7 @@ export class SpotifyApiService {
   private _playlists: Playlist[] = [];
   playlistsFetched = new Subject<Playlist[]>();
 
-  artistPopularTrackFetched = new Subject();
+  artistPopularTracksFetched = new Subject();
 
   constructor(private authService: AuthService, private httpClient: HttpClient) {
     this.headers = this.headers.set('Authorization', 'Bearer ' + authService.accessToken);
@@ -137,16 +137,21 @@ export class SpotifyApiService {
             tracks.push(this.parseTrack(data['tracks'][i], Context.Artist));
           }
 
-          this.artistPopularTrackFetched.next();
+          this.artistPopularTracksFetched.next();
         });
 
         const endpoint3 = 'https://api.spotify.com/v1/artists/' + id + '/albums';
         const params3 = { 'include_groups': 'album'};
         let albumsName = [];
+        let albumsImage = [];
+        let albumsID = [];
 
         this.httpClient.get(endpoint3, { headers: this.headers, params: params3 }).subscribe((data: Object) => {
           for(let i in data['items']) {
-            albumsName.push(data['items'][i]['name']);
+            let album = data['items'][i];
+            albumsName.push(album['name']);
+            albumsImage.push(Object.keys(album['images']).length === 0 ? null : album['images'][0]['url']);
+            albumsID.push(album['id']);
           }
         });
 
@@ -156,7 +161,9 @@ export class SpotifyApiService {
           image: Object.keys(data['images']).length === 0 ? null : data['images'][0]['url'],
           tracks: tracks,
           uri: data['uri'],
-          albumName: albumsName
+          albumName: albumsName,
+          albumImage: albumsImage,
+          albumID: albumsID
         }
 
         return artist;

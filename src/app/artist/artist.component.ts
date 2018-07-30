@@ -25,7 +25,7 @@ export class ArtistComponent implements OnInit {
       })
     });
 
-    this.spotifyApiService.artistPopularTrackFetched.subscribe(() => {
+    this.spotifyApiService.artistPopularTracksFetched.subscribe(() => {
       for(let track of this.artist.tracks) {
         for(let i in track.artistName) {
           if(track.artistName[i] === this.artist.name) {
@@ -35,7 +35,6 @@ export class ArtistComponent implements OnInit {
         }
       }
 
-      console.log(this.artist);
       this.table.renderRows();
     });
   }
@@ -58,8 +57,12 @@ export class ArtistComponent implements OnInit {
     this.router.navigate(['/artist', this.artist.tracks[trackIndex].artistID[artistIndex]]);
   }
 
-  onAlbumClick(index: number) {
+  onTableAlbumClick(index: number) {
     this.router.navigate(['/album', this.artist.tracks[index].albumID]);
+  }
+
+  onAlbumClick(index: number) {
+    this.router.navigate(['/album', this.artist.albumID[index]]);
   }
 
 }

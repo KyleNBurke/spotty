@@ -7,5 +7,7 @@ export interface Artist {
     image: string,
     tracks: Track[],
     uri: string,
-    albumName: string[]
+    albumName: string[],
+    albumImage: string[],
+    albumID: string[]
 }

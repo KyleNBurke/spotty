@@ -46,7 +46,7 @@
 
     <ng-container matColumnDef="album">
       <th mat-header-cell *matHeaderCellDef>Album</th>
-      <td mat-cell *matCellDef="let track; let i = index"><span class="link" (click)="onAlbumClick(i)">{{track.albumName}}</span></td>
+      <td mat-cell *matCellDef="let track; let i = index"><span class="link" (click)="onTableAlbumClick(i)">{{track.albumName}}</span></td>
     </ng-container>
 
     <ng-container matColumnDef="length">
@@ -61,7 +61,10 @@
 
   <h2 class="mat-title">Albums</h2>
   <div class="albums">
-    <mat-card *ngFor="let albumName of artist.albumName; let i = index">{{albumName}}</mat-card>
+    <mat-card *ngFor="let albumName of artist.albumName; let i = index" (click)="onAlbumClick(i)">
+      <img mat-card-image src="{{artist.albumImage[i]}}">
+      <span class="mat-body-1">{{albumName}}</span>
+    </mat-card>
   </div>
 
   <div class="end"></div>
