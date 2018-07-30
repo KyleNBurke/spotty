@@ -4,9 +4,9 @@
   </div>
   <div class="right">
     <h1 class="mat-display-2">{{playlist.name}}</h1>
-    <div class="mat-body-1">Playlist created by <span class="link">{{playlist.owner}}</span></div>
-    <div class="mat-body-1">{{playlist.tracks.length}} songs</div>
-    <div class="mat-body-1" *ngIf="playlist.owner === spotifyApiService.userId">{{ playlist.public ? 'Public' : 'Private' }}</div>
+    <div class="mat-body-1 grey-text">Playlist created by <span class="link">{{playlist.owner}}</span></div>
+    <div class="mat-body-1 grey-text">{{playlist.tracks.length}} songs</div>
+    <div class="mat-body-1 grey-text" *ngIf="playlist.owner === spotifyApiService.userId">{{ playlist.public ? 'Public' : 'Private' }}</div>
     <button mat-raised-button color="primary" class="play-button">PLAY</button>
   </div>
   <button mat-icon-button class="menu-button"><mat-icon>more_vert</mat-icon></button>

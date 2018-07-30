@@ -1,5 +1,10 @@
 @import '../shared/list.scss';
 
+.left {
+    max-height: 200px;
+    overflow: hidden;
+}
+
 .table-header {
     clear: left;
     padding-top: 20px;

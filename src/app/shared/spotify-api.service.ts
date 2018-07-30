@@ -93,10 +93,13 @@ export class SpotifyApiService {
 
     return this.httpClient.get<Album>(endpoint, { headers: this.headers }).pipe(
       map((data) => {
-        let artists: string[] = [];
+        let artistsName: string[] = [];
+        let artistsID: string[] = [];
         for(let k in data['artists']) {
           const name = data['artists'][k]['name'];
-          artists.push(name);
+          artistsName.push(name);
+          const id = data['artists'][k]['id'];
+          artistsID.push(id);
         }
 
         let tracks = [];
@@ -111,7 +114,8 @@ export class SpotifyApiService {
           tracks: tracks,
           uri: data['uri'],
           image: Object.keys(data['images']).length === 0 ? null : data['images'][0]['url'],
-          artist: artists,
+          artistName: artistsName,
+          artistID: artistsID,
           type: data['album_type']
         }
 
