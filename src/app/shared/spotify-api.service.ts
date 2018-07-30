@@ -158,7 +158,6 @@ export class SpotifyApiService {
         let albumsID = [];
 
         this.httpClient.get(endpoint3, { headers: this.headers, params: params3 }).subscribe((data: Object) => {
-          console.log(data);
           for(let i in data['items']) {
             let album = data['items'][i];
             albumsName.push(album['name']);
