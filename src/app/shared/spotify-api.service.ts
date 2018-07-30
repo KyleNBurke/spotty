@@ -108,6 +108,17 @@ export class SpotifyApiService {
           tracks.push(this.parseTrack(trackData, Context.Album));
         }
 
+        for(let albumArtistID of artistsID) {
+          for(let i in tracks) {
+            for(let j in tracks[i].artistID) {
+              if(albumArtistID === tracks[i].artistID[j]) {
+                tracks[i].artistName.splice(+j, 1);
+                tracks[i].artistID.splice(+j, 1);
+              }
+            }
+          }
+        }
+
         let album: Album =  {
           context: Context.Album,
           name: data['name'],
@@ -147,6 +158,7 @@ export class SpotifyApiService {
         let albumsID = [];
 
         this.httpClient.get(endpoint3, { headers: this.headers, params: params3 }).subscribe((data: Object) => {
+          console.log(data);
           for(let i in data['items']) {
             let album = data['items'][i];
             albumsName.push(album['name']);
