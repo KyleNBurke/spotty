@@ -42,7 +42,7 @@ export class AlbumComponent implements OnInit {
   }
 
   onAlbumArtistClick(index: number) {
-    this.router.navigate(['/artist', this.album.artistID[index]);
+    this.router.navigate(['/artist', this.album.artistID[index]]);
   }
 
 }
