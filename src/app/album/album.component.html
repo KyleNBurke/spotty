@@ -4,7 +4,7 @@
   </div>
   <div class="right">
     <h1 class="mat-display-2">{{album.name}}</h1>
-    <div class="mat-body-1 grey-text">{{album.type | titlecase}} by
+    <div class="mat-body-1 grey-text">{{album.type === 'EP' ? album.type : album.type | titlecase}} by
       <span *ngFor="let artist of album.artistName; let i = index">
         <span class="link" (click)="onAlbumArtistClick(i)">{{artist}}</span>
         <span *ngIf="i !== album.artistName.length - 1">, </span>

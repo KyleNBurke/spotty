@@ -65,4 +65,7 @@ export class ArtistComponent implements OnInit {
     this.router.navigate(['/album', this.artist.albumID[index]]);
   }
 
+  onSingleClick(index: number) {
+    this.router.navigate(['/album', this.artist.singleID[index]]);
+  }
 }

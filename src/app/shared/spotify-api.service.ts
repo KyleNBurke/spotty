@@ -119,6 +119,11 @@ export class SpotifyApiService {
           }
         }
 
+        let type = data['album_type'];
+        if(type === 'single' && tracks.length > 0) {
+          type = 'EP';
+        }
+
         let album: Album =  {
           context: Context.Album,
           name: data['name'],
@@ -127,7 +132,7 @@ export class SpotifyApiService {
           image: Object.keys(data['images']).length === 0 ? null : data['images'][0]['url'],
           artistName: artistsName,
           artistID: artistsID,
-          type: data['album_type']
+          type: type
         }
 
         return album;
@@ -142,7 +147,6 @@ export class SpotifyApiService {
         const endpoint2 = 'https://api.spotify.com/v1/artists/' + id + '/top-tracks';
         const params2 = { 'country': 'US' };
         let tracks = [];
-
         this.httpClient.get(endpoint2, { headers: this.headers, params: params2 }).subscribe((data: Object) => {
           for(let i in data['tracks']) {
             tracks.push(this.parseTrack(data['tracks'][i], Context.Artist));
@@ -156,13 +160,27 @@ export class SpotifyApiService {
         let albumsName = [];
         let albumsImage = [];
         let albumsID = [];
-
         this.httpClient.get(endpoint3, { headers: this.headers, params: params3 }).subscribe((data: Object) => {
           for(let i in data['items']) {
             let album = data['items'][i];
             albumsName.push(album['name']);
             albumsImage.push(Object.keys(album['images']).length === 0 ? null : album['images'][0]['url']);
             albumsID.push(album['id']);
+          }
+        });
+
+        const endpoint4 = 'https://api.spotify.com/v1/artists/' + id + '/albums';
+        const params4 = { 'include_groups': 'single'};
+        let singlesName = [];
+        let singlesImage = [];
+        let singlesID = [];
+
+        this.httpClient.get(endpoint4, { headers: this.headers, params: params4 }).subscribe((data: Object) => {
+          for(let i in data['items']) {
+            let single = data['items'][i];
+            singlesName.push(single['name']);
+            singlesImage.push(Object.keys(single['images']).length === 0 ? null : single['images'][0]['url']);
+            singlesID.push(single['id']);
           }
         });
 
@@ -174,7 +192,10 @@ export class SpotifyApiService {
           uri: data['uri'],
           albumName: albumsName,
           albumImage: albumsImage,
-          albumID: albumsID
+          albumID: albumsID,
+          singleName: singlesName,
+          singleImage: singlesImage,
+          singleID: singlesID
         }
 
         return artist;

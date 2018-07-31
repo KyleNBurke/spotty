@@ -64,11 +64,19 @@
       [class.active]="isTrackActive(i)"></tr>
   </table>
 
-  <h2 class="mat-title">Albums</h2>
-  <div class="albums">
+  <h2 class="mat-title card-header">Albums</h2>
+  <div class="cards">
     <mat-card *ngFor="let albumName of artist.albumName; let i = index" (click)="onAlbumClick(i)">
       <img mat-card-image src="{{artist.albumImage[i]}}">
       <span class="mat-body-1">{{albumName}}</span>
+    </mat-card>
+  </div>
+
+  <h2 class="mat-title card-header">Singles and EPs</h2>
+  <div class="cards">
+    <mat-card *ngFor="let singleName of artist.singleName; let i = index" (click)="onSingleClick(i)">
+      <img mat-card-image src="{{artist.singleImage[i]}}">
+      <span class="mat-body-1">{{singleName}}</span>
     </mat-card>
   </div>
 
