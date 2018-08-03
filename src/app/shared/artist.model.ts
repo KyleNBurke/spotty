@@ -7,10 +7,13 @@ export interface Artist {
     image: string,
     tracks: Track[],
     uri: string,
-    albumName: string[],
-    albumImage: string[],
-    albumID: string[],
-    singleName: string[],
-    singleImage: string[],
-    singleID: string[]
+    albums: [ArtistAlbum[]],
+    singles: ArtistAlbum[]
+}
+
+export interface ArtistAlbum {
+    name: string,
+    image: string,
+    id: string,
+    date: string
 }

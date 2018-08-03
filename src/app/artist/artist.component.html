@@ -65,20 +65,32 @@
   </table>
 
   <h2 class="mat-title card-header">Albums</h2>
-  <div class="cards">
-    <mat-card *ngFor="let albumName of artist.albumName; let i = index" (click)="onAlbumClick(i)">
-      <img mat-card-image src="{{artist.albumImage[i]}}">
-      <span class="mat-body-1">{{albumName}}</span>
+  <div *ngIf="artist.albums[0][0]" class="cards">
+    <mat-card *ngFor="let albumArr of artist.albums; let i = index" (click)="onAlbumClick(i)">
+      <img mat-card-image src="{{albumArr[0].image}}">
+      <div class="mat-body-1 album-name">{{albumArr[0].name}}</div>
+      <span *ngIf="albumArr.length > 1" class="more-button">
+        <button mat-icon-button (click)="onAlbumMoreClick(i, $event)" [matMenuTriggerFor]="albumMoreMenu"><mat-icon>more_vert</mat-icon></button>
+      </span>
+      <div class="mat-body-2 grey-text">
+        {{albumArr[0].date}}
+      </div>
     </mat-card>
   </div>
 
   <h2 class="mat-title card-header">Singles and EPs</h2>
   <div class="cards">
-    <mat-card *ngFor="let singleName of artist.singleName; let i = index" (click)="onSingleClick(i)">
-      <img mat-card-image src="{{artist.singleImage[i]}}">
-      <span class="mat-body-1">{{singleName}}</span>
+    <mat-card *ngFor="let single of artist.singles; let i = index" (click)="onSingleClick(i)">
+      <img mat-card-image src="{{single.image}}">
+      <div class="mat-body-1 album-name">{{single.name}}</div>
+      <div class="mat-body-2 grey-text">{{single.date}}</div>
     </mat-card>
   </div>
 
   <div class="end"></div>
+
+  <mat-menu #albumMoreMenu="matMenu">
+    <button mat-menu-item *ngFor="let album of artist.albums[selectedAlbum] | slice:1; let i = index" (click)="onOtherAlbumClick(i + 1)">{{album.name}}</button>
+  </mat-menu>
 </div>
+

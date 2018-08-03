@@ -15,6 +15,19 @@
     margin-top: 40px;
 }
 
+.mat-card {
+
+    .album-name {
+        margin-bottom: 8px;
+    }
+
+    .more-button {
+        position: absolute;
+        right: 5px;;
+        bottom: 16px;
+    }
+}
+
 .mat-table {
     margin-bottom: 20px;
 }

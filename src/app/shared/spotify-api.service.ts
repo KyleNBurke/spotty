@@ -6,7 +6,7 @@ import { Playlist } from './playlist.model';
 import { Album } from './album.model';
 import { map } from 'rxjs/operators';
 import { Track } from './track.model';
-import { Artist } from './artist.model';
+import { Artist, ArtistAlbum } from './artist.model';
 
 export enum Context {
   Playlist,
@@ -157,30 +157,42 @@ export class SpotifyApiService {
 
         const endpoint3 = 'https://api.spotify.com/v1/artists/' + id + '/albums';
         const params3 = { 'include_groups': 'album'};
-        let albumsName = [];
-        let albumsImage = [];
-        let albumsID = [];
+        let albums: [ArtistAlbum[]] = [[]];
         this.httpClient.get(endpoint3, { headers: this.headers, params: params3 }).subscribe((data: Object) => {
-          for(let i in data['items']) {
-            let album = data['items'][i];
-            albumsName.push(album['name']);
-            albumsImage.push(Object.keys(album['images']).length === 0 ? null : album['images'][0]['url']);
-            albumsID.push(album['id']);
+          let newName = '';
+          for(let i = 0; i < Object.keys(data['items']).length; i++) {
+            const album = data['items'][i];
+            const name = album['name'];
+            const albumToAdd: ArtistAlbum = {
+              name: name,
+              image: Object.keys(album['images']).length === 0 ? null : album['images'][0]['url'],
+              id: album['id'],
+              date: album['release_date']
+            }
+
+            if(name === newName) {
+              albums[albums.length - 1].push(albumToAdd);
+            }
+            else {
+              newName = name;
+              i === 0 ? albums[0] = [albumToAdd] : albums.push([albumToAdd]);
+            }
           }
         });
 
         const endpoint4 = 'https://api.spotify.com/v1/artists/' + id + '/albums';
         const params4 = { 'include_groups': 'single'};
-        let singlesName = [];
-        let singlesImage = [];
-        let singlesID = [];
-
+        let singles: ArtistAlbum[] = [];
         this.httpClient.get(endpoint4, { headers: this.headers, params: params4 }).subscribe((data: Object) => {
-          for(let i in data['items']) {
-            let single = data['items'][i];
-            singlesName.push(single['name']);
-            singlesImage.push(Object.keys(single['images']).length === 0 ? null : single['images'][0]['url']);
-            singlesID.push(single['id']);
+          for(let single of data['items']) {
+            const singleToAdd: ArtistAlbum = {
+              name: single['name'],
+              image: Object.keys(single['images']).length === 0 ? null : single['images'][0]['url'],
+              id: single['id'],
+              date: single['release_date']
+            }
+
+            singles.push(singleToAdd);
           }
         });
 
@@ -190,12 +202,8 @@ export class SpotifyApiService {
           image: Object.keys(data['images']).length === 0 ? null : data['images'][0]['url'],
           tracks: tracks,
           uri: data['uri'],
-          albumName: albumsName,
-          albumImage: albumsImage,
-          albumID: albumsID,
-          singleName: singlesName,
-          singleImage: singlesImage,
-          singleID: singlesID
+          albums: albums,
+          singles: singles
         }
 
         return artist;

@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SpotifyApiService } from '../shared/spotify-api.service';
 import { MatTable } from '@angular/material/table';
 import { PlayerService } from '../shared/player.service';
-import { Track } from '../shared/track.model';
 
 @Component({
   selector: 'app-artist',
@@ -15,6 +14,7 @@ export class ArtistComponent implements OnInit {
   private artist: Artist;
   private displayColumns: string[] = ['playButton', 'number', 'title', 'actions', 'explicit', 'album', 'length'];
   @ViewChild(MatTable) table: MatTable<null>; 
+  private selectedAlbum: number = 0;
 
   constructor(private route: ActivatedRoute, private spotifyApiService: SpotifyApiService, private router: Router, private playerService: PlayerService) { }
 
@@ -62,10 +62,19 @@ export class ArtistComponent implements OnInit {
   }
 
   onAlbumClick(index: number) {
-    this.router.navigate(['/album', this.artist.albumID[index]]);
+    this.router.navigate(['/album', this.artist.albums[index][0].id]);
   }
 
   onSingleClick(index: number) {
-    this.router.navigate(['/album', this.artist.singleID[index]]);
+    this.router.navigate(['/album', this.artist.singles[index].id]);
+  }
+
+  onAlbumMoreClick(index: number, event) {
+    event.stopPropagation();
+    this.selectedAlbum = index;
+  }
+
+  onOtherAlbumClick(index: number) {
+    this.router.navigate(['/album', this.artist.albums[this.selectedAlbum][index].id]);
   }
 }
