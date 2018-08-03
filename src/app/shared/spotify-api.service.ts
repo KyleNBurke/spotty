@@ -156,7 +156,7 @@ export class SpotifyApiService {
         });
 
         const endpoint3 = 'https://api.spotify.com/v1/artists/' + id + '/albums';
-        const params3 = { 'include_groups': 'album'};
+        const params3 = { 'include_groups': 'album', 'limit': '50'};
         let albums: [ArtistAlbum[]] = [[]];
         this.httpClient.get(endpoint3, { headers: this.headers, params: params3 }).subscribe((data: Object) => {
           let newName = '';
@@ -181,7 +181,7 @@ export class SpotifyApiService {
         });
 
         const endpoint4 = 'https://api.spotify.com/v1/artists/' + id + '/albums';
-        const params4 = { 'include_groups': 'single'};
+        const params4 = { 'include_groups': 'single', 'limit': '50'};
         let singles: ArtistAlbum[] = [];
         this.httpClient.get(endpoint4, { headers: this.headers, params: params4 }).subscribe((data: Object) => {
           for(let single of data['items']) {
